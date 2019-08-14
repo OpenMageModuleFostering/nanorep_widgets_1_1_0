@@ -104,12 +104,12 @@ class NanoRep_Widgets_Block_Support extends Mage_Core_Block_Template
                             $out .= '<h3>' . Mage::getStoreConfig('nanorepwidgets/support_widget/product_faq_headline') . '</h3>';
                         }
                     }
-                    else{
-                        $out .= '<div id="nanoRepGeneralFaq">';
-                        if(Mage::getStoreConfig('nanorepwidgets/support_widget/general_faq_headline') != ""){
-                            $out .= '<h3>' . Mage::getStoreConfig('nanorepwidgets/support_widget/general_faq_headline') . '</h3>';
-                        }
-                    }
+                    // else{
+                        // $out .= '<div id="nanoRepGeneralFaq">';
+                        // if(Mage::getStoreConfig('nanorepwidgets/support_widget/general_faq_headline') != ""){
+                            // $out .= '<h3>' . Mage::getStoreConfig('nanorepwidgets/support_widget/general_faq_headline') . '</h3>';
+                        // }
+                    // }
                     foreach($items as $item)
                     {
                         $product_attributes = array();

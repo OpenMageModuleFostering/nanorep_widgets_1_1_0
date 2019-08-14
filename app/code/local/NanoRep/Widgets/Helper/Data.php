@@ -40,6 +40,10 @@ class NanoRep_Widgets_Helper_Data extends Mage_Core_Helper_Abstract
 	public function isSupportWidgetEnabled(){
 		return Mage::getStoreConfigFlag("nanorepwidgets/support_widget/active");
 	}
+	
+	public function isSupportWidgetQuestionsHidden(){
+		return Mage::getStoreConfigFlag("nanorepwidgets/support_widget/question_hidden");
+	}
     
     // public function getSupportWidgetUsername(){
         // return Mage::getStoreConfig("nanorepwidgets/support_widget/username");
@@ -90,9 +94,9 @@ class NanoRep_Widgets_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getStoreConfig("nanorepwidgets/support_widget/product_faq_headline");
     }
     
-    public function getSupportWidgetGeneralFaqHeadline(){
-        return Mage::getStoreConfig("nanorepwidgets/support_widget/general_faq_headline");
-    }
+    // public function getSupportWidgetGeneralFaqHeadline(){
+        // return Mage::getStoreConfig("nanorepwidgets/support_widget/general_faq_headline");
+    // }
     
     public function getSupportWidgetMaxItems(){
         return Mage::getStoreConfig("nanorepwidgets/support_widget/max_items");

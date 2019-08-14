@@ -19,6 +19,10 @@
             <block type="nanorepwidgets/general" name="nanorep_general_widget" as="nanorep_general_widget" template="nanorepwidgets/general.phtml" />
             <block type="nanorepwidgets/events" name="nanorep_events" as="nanorep_events" template="nanorepwidgets/events.phtml" />
         </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><file>nanorepwidgets/annyang.js</file></action>
+            <action method="addItem"><type>skin_js</type><file>nanorepwidgets/voice.js</file></action>
+        </reference>
     </default>
     
     <nanorepwidgets_index_getcustomerhistory>

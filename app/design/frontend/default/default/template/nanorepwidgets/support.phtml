@@ -10,8 +10,13 @@ if (!is_null($this -> getProduct())) {
 
 <?php if($this->helper("nanorepwidgets")->isSupportWidgetEnabled()):?>
 <!--do not modify this script -->
+<?php if($this->helper("nanorepwidgets")->isSupportWidgetQuestionsHidden()):?>
+	<noscript>
+<?php endif; ?>
 <?php $this->getXml(true); ?>
-<?php $this->getXml(); ?>
+<?php if($this->helper("nanorepwidgets")->isSupportWidgetQuestionsHidden()):?>
+	</noscript>
+<?php endif; ?>
 <script type='text/javascript'>
 
     document.observe("dom:loaded", function() {
@@ -24,8 +29,7 @@ if (!is_null($this -> getProduct())) {
     	}
         onloadFnc();    
     }); 
-
-	var _nRepData = _nRepData || [];
+    
 	_nRepData['kb'] = '8331305';
 	/* API here */;
 	_nRepData['embed'] = {
