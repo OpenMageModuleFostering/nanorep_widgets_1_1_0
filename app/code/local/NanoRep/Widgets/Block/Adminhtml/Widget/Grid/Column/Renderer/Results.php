@@ -21,6 +21,7 @@ class NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Results extend
 					foreach ($results as $aid => $result) {
 						$title = "";
 						$body = "";
+						$answer_id = "";
 						foreach ($result as $key => $value) {
 							if($key == "title"){
 								$title = $value;
@@ -28,10 +29,13 @@ class NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Results extend
 							if($key == "body"){
 								$body = $value;
 							}
+							if($key == "answerId"){
+								$answer_id = $value;
+							}
 						}
-						if($title != "" && $body != ""){
-							$out[] = $title . ' <a href="#" onclick="$(\'answer_body_'.$row->getQueryId().'_place_holder\').toggle();">Toggle Body</a>';
-							$out[] = '<div id="answer_body_'.$row->getQueryId().'_place_holder" style="display:none;">';
+						if($title != "" && $body != "" && $answer_id != ""){
+							$out[] = $title . ' <a href="#" onclick="$(\'answer_body_'.$answer_id.'-'.$row->getQueryId().'_place_holder\').toggle();">Toggle Body</a>';
+							$out[] = '<div id="answer_body_'.$answer_id.'-'.$row->getQueryId().'_place_holder" style="display:none;">';
 							$out[] = $body;
 							$out[] = '</div>';
 							$out[] = '<br/>';

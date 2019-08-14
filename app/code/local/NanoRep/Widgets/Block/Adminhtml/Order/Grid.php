@@ -23,8 +23,13 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
     {
         $collection = Mage::getResourceModel('nanorepwidgets/query_collection')
             ->join(array('o' => 'sales/order'), 'main_table.order_id = o.entity_id')
-			->join(array('p' => 'sales/order_item'), 'main_table.order_id = p.order_id', array(
+			->join(array('s' => 'sales/order_address'), 'main_table.order_id = s.parent_id', array(
+				'shipping_firstname' => 'firstname',
+				'shipping_lastname' => 'lastname'
+			))
+			->join(array('p' => 'sales/order_item'), 'main_table.order_id = p.order_id AND main_table.product_id = p.product_id', array(
                 'product_name'  => 'name',
+                'product_price' => 'row_total_incl_tax',
                 'qty_ordered'       => 'qty_ordered'
             ))
             ->addExpressionFieldToSelect(
@@ -33,23 +38,22 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
                 array('customer_firstname' => 'o.customer_firstname', 'customer_lastname' => 'o.customer_lastname'))
             ->addExpressionFieldToSelect(
                 'shipping_fullname',
-                '(SELECT CONCAT({{shipping_customer_firstname}}, \' \', {{shipping_customer_lastname}})
-                	FROM sales_flat_order_address a
-                	WHERE o.shipping_address_id = a.entity_id)',
-                	array('shipping_customer_firstname' => 'a.firstname', 'shipping_customer_lastname' => 'a.lastname'))
+                'CONCAT({{shipping_customer_firstname}}, \' \', {{shipping_customer_lastname}})',
+                	array('shipping_customer_firstname' => 's.firstname', 'shipping_customer_lastname' => 's.lastname'))
 			->addExpressionFieldToSelect(
                 'questions',
-                '(SELECT GROUP_CONCAT(DISTINCT {{questions}} ORDER BY date ASC SEPARATOR ", "))',
+                'GROUP_CONCAT(DISTINCT {{questions}} ORDER BY date ASC SEPARATOR ", ")',
 				array('questions' => 'main_table.query'))
 			->addExpressionFieldToSelect(
                 'grouped_results',
-                '(SELECT GROUP_CONCAT(DISTINCT {{grouped_results}} ORDER BY date ASC SEPARATOR ":::"))',
+                'GROUP_CONCAT(DISTINCT {{grouped_results}} ORDER BY date ASC SEPARATOR ":::")',
 				array('grouped_results' => 'main_table.results'))
         ;
+		$collection->getSelect()->where('s.address_type = "shipping"');
+		$collection->getSelect()->where('p.row_total_incl_tax IS NOT NULL');
         $this->setCollection($collection);
 		$collection->getSelect()->group(array('main_table.product_id', 'main_table.order_id'));
-		$collection->getSelect()->order('main_table.product_id');
-		// echo $collection->getSelect();
+		$collection->getSelect()->order(array('main_table.product_id DESC'));
         parent::_prepareCollection();
         return $this;
     }
@@ -60,33 +64,39 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('product_id', array(
             'header' => $helper->__('Product #'),
             'index'  => 'product_id',
+            'order_callback' => array($this, '_sort')
         ));
         $this->addColumn('product_name', array(
             'header'       => $helper->__('Products Purchased'),
             'index'        => 'product_name',
-            'filter' =>	false
+            'filter_condition_callback' => array($this, '_productNameFilter'),
+            'order_callback' => array($this, '_sort')
+            // 'filter' =>	false
         ));
 		$this->addColumn('qty_ordered', array(
             'header'       => $helper->__('Quantity'),
             'index'        => 'qty_ordered',
+            'order_callback' => array($this, '_sort')
         ));
         $this->addColumn('fullname', array(
             'header'       => $helper->__('Bill to Name'),
             'index'        => 'fullname',
             'filter_index' => 'CONCAT(customer_firstname, \' \', customer_lastname)',
+            'order_callback' => array($this, '_sort')
         ));
         $this->addColumn('shipping_fullname', array(
             'header'       => $helper->__('Ship to Name'),
             'index'        => 'shipping_fullname',
-            'filter_index' => 'CONCAT(shipping_customer_firstname, \' \', shipping_customer_lastname)',
-            'filter' => false,
-            'sortable'  => false
+            'filter_condition_callback' => array($this, '_shippingNameFilter'),
+            'order_callback' => array($this, '_sort')
+            // 'sortable'  => false
         ));
-        $this->addColumn('grand_total', array(
+        $this->addColumn('product_price', array(
             'header'        => $helper->__('Purchased Price'),
-            'index'         => 'grand_total',
+            'index'         => 'product_price',
             'type'          => 'currency',
-            'currency_code' => $currency
+            'currency_code' => $currency,
+            'order_callback' => array($this, '_sort')
         ));
 		
 		//Question(s) asked prior the submission
@@ -94,7 +104,7 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
             'header'       => $helper->__('Question(s) asked prior the submission'),
             'index'        => 'questions',
             'renderer'  => 'NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Questions',
-            'filter' => false,
+            'filter_condition_callback' => array($this, '_queryFilter'),
             'sortable'  => false
         ));
 		
@@ -102,7 +112,7 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
             'header'       => $helper->__('Result(s) provided by nanoRep (Respectively)'),
             'index'        => 'grouped_results',
             'renderer'  => 'NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Results',
-            'filter' => false,
+            'filter_condition_callback' => array($this, '_resultFilter'),
             'sortable'  => false
         ));
 		
@@ -110,7 +120,7 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
             'header' => $helper->__('Purchased On'),
             'type'   => 'datetime',
             'index'  => 'created_at',
-            'filter' => false,
+            'filter_condition_callback' => array($this, '_createdAtFilter'),
             // 'sortable'  => false
             
         ));
@@ -118,8 +128,82 @@ class NanoRep_Widgets_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Wi
         $this->addExportType('*/*/exportExcel', $helper->__('Excel XLS'));
         return parent::_prepareColumns();
     }
+
+	/**
+	 * Sets sorting order by some column
+	 *
+	 * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+	 *
+	 * @return Mage_Adminhtml_Block_Widget_Grid
+	 */
+	protected function _setCollectionOrder($column)
+	{
+	    if ($column->getOrderCallback()) {
+	        call_user_func($column->getOrderCallback(), $this->getCollection(), $column);
+	
+	        return $this;
+	    }
+	
+	    return parent::_setCollectionOrder($column);
+	}
+
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }
+	
+	protected function _productNameFilter($collection, $column)
+	{
+		if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        $collection->getSelect()->where("`p`.`name` LIKE '%".$value."%'");
+	    return $this;
+	}
+	
+	protected function _shippingNameFilter($collection, $column)
+	{
+		if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        $collection->getSelect()->where("CONCAT(s.firstname, ' ', s.lastname) LIKE '%".$value."%'");
+	    return $this;
+	}
+	
+	protected function _resultFilter($collection, $column)
+	{
+		if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        $collection->getSelect()->where("results LIKE '%".$value."%'");
+	    return $this;
+	}
+	
+	protected function _queryFilter($collection, $column)
+	{
+		if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        $collection->getSelect()->where("query LIKE '%".$value."%'");
+	    return $this;
+	}
+	
+	protected function _createdAtFilter($collection, $column)
+	{
+		if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+		$to = Mage::getModel('core/date')->timestamp(strtotime($value["to"])); //Magento's timestamp function makes a usage of timezone and converts it to timestamp
+		$to = date('Y-m-d', $to);
+		$from = Mage::getModel('core/date')->timestamp(strtotime($value["from"])); //Magento's timestamp function makes a usage of timezone and converts it to timestamp
+		$from = date('Y-m-d', $from);
+        $collection->getSelect()->where("o.created_at < '".$to."' AND o.created_at > '".$from."'");
+	    return $this;
+	}
+	
+	protected function _sort($collection, $column){
+		$collection->getSelect()->reset( Zend_Db_Select::ORDER );
+		$collection->getSelect()->order(array($column->getIndex() . ' ' . strtoupper($column->getDir())));
+		return $this;
+	}
 }

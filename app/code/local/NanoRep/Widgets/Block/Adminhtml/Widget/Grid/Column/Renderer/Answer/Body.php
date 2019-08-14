@@ -13,8 +13,8 @@ class NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Answer_Body ex
 		$value = $row -> getData($this -> getColumn() -> getIndex());
 		$out = array();
 		if($value != ""){
-			$out[] = '<a href="#" onclick="$(\'answer_body_'.$row->getAnswerId().'_place_holder\').toggle();">Toggle Body</a>';
-			$out[] = '<div id="answer_body_'.$row->getAnswerId().'_place_holder" style="display:none;">';
+			$out[] = '<a href="#" onclick="$(\'answer_body_'.$row->getEntityId().'_place_holder\').toggle();">Toggle Body</a>';
+			$out[] = '<div id="answer_body_'.$row->getEntityId().'_place_holder" style="display:none;">';
 		}
 		$out[] = htmlspecialchars_decode($value);
 		if($value != ""){

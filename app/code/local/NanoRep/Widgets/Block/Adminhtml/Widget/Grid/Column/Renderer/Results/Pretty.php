@@ -30,15 +30,15 @@ class NanoRep_Widgets_Block_Adminhtml_Widget_Grid_Column_Renderer_Results_Pretty
 							}
 						}
 						if($title != "" && $body != ""){
-							$out[] = addslashes(strip_tags($title))."\n";
+							$out[] = addslashes(strip_tags($title))."\r\n";
 							$out[] = "\t".addslashes(strip_tags($body));
-							$out[] = "\n";
+							$out[] = "\r\n";
 						}
 					}
 					$limit--;
 				}
 				array_pop($out);
-				$out[] = '\n';
+				$out[] = "\r\n";
 			}
 		}
 		array_pop($out);
