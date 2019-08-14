@@ -105,7 +105,12 @@ class NanoRep_Widgets_Helper_Data extends Mage_Core_Helper_Abstract
     }
     
 	public function getStoreQueryInCookieUrl(){
-		return Mage::getBaseUrl() . 'nanorep/query/storeQuery';
+		if (Mage::app()->getStore()->isCurrentlySecure()) { 
+                return Mage::getUrl('nanorepwidgets/query/storeQuery', array('_secure' => true));
+        }
+        else{  
+			return Mage::getUrl('nanorepwidgets/query/storeQuery');
+        }
 	}
 	
 	public function getSession(){

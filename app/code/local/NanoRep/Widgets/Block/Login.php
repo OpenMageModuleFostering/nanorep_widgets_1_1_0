@@ -17,6 +17,6 @@ class NanoRep_Widgets_Block_Login extends Mage_Customer_Block_Form_Login
      */
     public function getPostActionUrl()
     {
-        return Mage::getUrl('nanorep/account/loginPost');
+        return Mage::getUrl('nanorepwidgets/account/loginPost');
     }
 }

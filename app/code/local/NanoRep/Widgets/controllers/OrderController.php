@@ -18,7 +18,7 @@ class NanoRep_Widgets_OrderController extends Mage_Core_Controller_Front_Action
     {
         parent::preDispatch();
         $action = $this->getRequest()->getActionName();
-        $loginUrl = Mage::getUrl('nanorep/account/login');
+        $loginUrl = Mage::getUrl('nanorepwidgets/account/login');
 		
     	if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
 		    $this->setFlag('', self::FLAG_NO_DISPATCH, true);

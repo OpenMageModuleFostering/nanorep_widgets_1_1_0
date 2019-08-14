@@ -28,7 +28,7 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
 	
 	public function indexAction()
 	{
-		$this->_redirectUrl('nanorep/account/login');
+		$this->_redirectUrl('nanorepwidgets/account/login');
 	}
 
     /**
@@ -86,12 +86,12 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
     public function loginPostAction()
     {
         if (!$this->_validateFormKey()) {
-            $this->_redirect('nanorep/account/login');
+            $this->_redirect('nanorepwidgets/account/login');
             return;
         }
 
         if ($this->_getSession()->isLoggedIn()) {
-            $this->_redirect('nanorep/order/list');
+            $this->_redirect('nanorepwidgets/order/list');
             return;
         }
         $session = $this->_getSession();
@@ -135,19 +135,19 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
     protected function _loginPostRedirect()
     {
         $session = $this->_getSession();
-		$referer = 'nanorep/account/login';
+		$referer = 'nanorepwidgets/account/login';
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
             // Set default URL to redirect customer to
             // $session->setBeforeAuthUrl($this->_getHelper('customer')->getAccountUrl());
             // Redirect customer to the last page visited after logging in
             if ($session->isLoggedIn()) {
-                $referer = 'nanorep/order/list';
+                $referer = 'nanorepwidgets/order/list';
                 if ($this->_isUrlInternal($referer)) {
                     $session->setBeforeAuthUrl($referer);
                 }
             }
         } else {
-        	$referer = 'nanorep/order/list';
+        	$referer = 'nanorepwidgets/order/list';
         }
         $this->_redirectUrl($referer);
     }
@@ -169,7 +169,7 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
     public function loginAction()
     {
         if ($this->_getSession()->isLoggedIn()) {
-            $this->_redirect('nanorep/order/list');
+            $this->_redirect('nanorepwidgets/order/list');
             return;
         }
         $this->getResponse()->setHeader('Login-Required', 'true');
