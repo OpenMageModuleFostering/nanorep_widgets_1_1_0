@@ -4,16 +4,16 @@
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		nanoRep. 
+ * @company		nanoRep.
  * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */	
+ */
 -->
 <layout version="0.1.0">
-    <nanorep_adminhtml_mynanorep_index>
+    <adminhtml_mynanorep_index>
         <remove name="footer" />
         <reference name="content">
             <block type="nanorepwidgets/adminhtml_mynanorep" name="my_nanorep" template="nanorepwidgets/mynanorep.phtml"/>
         </reference>
-    </nanorep_adminhtml_mynanorep_index>
+    </adminhtml_mynanorep_index>
 </layout>

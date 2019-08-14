@@ -3,7 +3,7 @@
  * NanoRep Widgets Extension
  *
  * @package     NanoRep_Widgets
- * @company     Omniscience Co. 
+ * @company     Omniscience Co.
  * @website     http://www.omniscience.co.il
  * @author      Dan Aharon-Shalom
  */
@@ -15,7 +15,7 @@
         <script type="text/javascript">
             var _nanoRepContactusSessionId = '',
                 _nanoRepContactusRequestId = 0;
-        
+
             function getNanoRepContactUsSessionId(query, e){
                 var getSessionIdUrl = "<?php echo $this->getApiServerUrl('hello.js'); ?>";
                 new Ajax.JSONRequest(getSessionIdUrl, {
@@ -35,7 +35,7 @@
                         _nanoRepContactusSessionId = ''
                     }, data['timeout'] * 1000);
                     // console.log("Nanorep Session Opened: " + _nanoRepContactusSessionId);
-                    queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
+                    getNanoRepAnswerByQuery(query, _nanoRepContactusSessionId, e);
                     // console.log("1: success", response, response.responseJSON);
                   },
                   onFailure: function(response) {
@@ -46,14 +46,75 @@
                   }
                 });
             }
-            
-            function queryNanoRepContactUs(query, sid, e){
+
+            function getNanoRepAnswerById(aid, sid, e){
+              var nanoRepQueryApiUrl = "<?php echo $this->getApiServerUrl("a.js")?>"
+
+              if(sid == ''){
+                  getNanoRepContactUsSessionId();
+              }
+              new Ajax.JSONRequest(nanoRepQueryApiUrl, {
+                callbackParamName: "cb",
+                parameters: {
+                    answerId : aid,
+                    requestId : _nanoRepContactusRequestId,
+                    kbLC : "en",
+                    "sid" : sid
+                },
+                onCreate: function(response) {
+                  // console.log("1: create", response, response.responseJSON);
+                },
+                onSuccess: function(response) {
+                  var data = response.responseJSON;
+                  // console.log(e);
+                  console.log(data);
+                  var answers = data.answers;
+                  console.log(answers);
+                  var aLength = answers.length;
+                  nanoRepContactUsAnswers.title = "<?php echo $this->getTitle(); ?>";
+                  if(aLength > 0){
+                    //COMMENT: Show the answer regardless to the context
+                      // for(a = 0; a < aLength; a++){
+                      //     if(answers[a].context != undefined){
+                      //         answers.splice(a, 1);
+                      //     }
+                      // }
+                      // console.log(aLength);
+                      // console.log(data.requestId);
+                      // console.log((_nanoRepContactusRequestId - 1));
+
+                      if(aLength > 0 && data.requestId == (_nanoRepContactusRequestId - 1)){
+                          console.log(answers);
+                          nanoRepContactUsAnswers.show(e, answers);
+                      }
+                      else{
+                          $('answers-popup-text').innerHTML = '';
+                          nanoRepContactUsAnswers.hide();
+                      }
+
+                  }
+                  else{
+                      $('answers-popup-text').innerHTML = '';
+                      nanoRepContactUsAnswers.hide();
+                  }
+                  // console.log("1: success", response, response.responseJSON);
+                },
+                onFailure: function(response) {
+                  //console.log("1: fail", response, response.responseJSON);
+                },
+                onComplete: function(response) {
+                  //console.log("1: complete", response, response.responseJSON);
+                }
+              });
+              _nanoRepContactusRequestId++;
+            }
+
+            function getNanoRepAnswerByQuery(query, sid, e){
                 var nanoRepQueryApiUrl = "<?php echo $this->getApiServerUrl("q.js")?>"
-                
+
                 if(sid == ''){
                     getNanoRepContactUsSessionId();
                 }
-                
                 new Ajax.JSONRequest(nanoRepQueryApiUrl, {
                   callbackParamName: "cb",
                   parameters: {
@@ -74,7 +135,7 @@
                     //console.log(data);
                     nanoRepContactUsAnswers.title = "<?php echo $this->getTitle(); ?>";
                     if(data.answers.length > 0){
-                        for(a = 0; a < data.answers.length; a++){  
+                        for(a = 0; a < data.answers.length; a++){
                             if(data.answers[a].context != undefined){
                                 data.answers.splice(a, 1);
                             }
@@ -86,7 +147,7 @@
                             $('answers-popup-text').innerHTML = '';
                             nanoRepContactUsAnswers.hide();
                         }
-                            
+
                     }
                     else{
                         $('answers-popup-text').innerHTML = '';
@@ -103,12 +164,12 @@
                 });
                 _nanoRepContactusRequestId++;
             }
-            
+
             var fields_css = [<?php echo $fileds ?>];
             if(fields_css.length > 0){
                 for(var i = 0; i < fields_css.length; i++){
                     $$(fields_css[i])[0].observe('keyup', function(e){
-                        var query = e.target.value; 
+                        var query = e.target.value;
                         if(query != ""){
                             clearTimeout(window.nanoRepContactusTimer);
                             window.nanoRepContactusTimer = setTimeout(function(){
@@ -116,7 +177,7 @@
                                     getNanoRepContactUsSessionId(query, e);
                                 }
                                 else{
-                                    queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
+                                    getNanoRepAnswerByQuery(query, _nanoRepContactusSessionId, e);
                                 }
                             }, 500);
                         }
@@ -124,7 +185,7 @@
                 }
             }
         </script>
-        
+
         <div id="answers-popup" class="answers-popup" style="display:none">
             <a href="#" class="answers-popup-close" id="answers-popup-close">×</a>
             <div class="answers-popup-heading"><h3 id="answers-popup-heading"></h3></div>
@@ -132,12 +193,12 @@
                 <div class="answers-popup-text" id="answers-popup-text"></div>
             </div>
         </div>
-        
+
         <script type="text/javascript">
             nanoRepContactUsAnswers = {
 
                 active: false,
-            
+
                 show: function(event, answers) {
                     var helpBox = $('answers-popup'),
                         bodyNode = $$('body')[0];
@@ -145,7 +206,7 @@
                     if (!helpBox) {
                         return;
                     }
-            
+
                     //Move help box to be right in body tag
                     var bodyNode = $$('body')[0];
                     if (helpBox.parentNode != bodyNode) {
@@ -157,12 +218,12 @@
                         if (!helpBox.offsetPosition) {
                             helpBox.offsetPosition = {left:0, top: 0};
                         }
-            
+
                         helpBox.removeClassName('answers-popup-right');
                         helpBox.removeClassName('answers-popup-left');
-                        helpBox.style.left = Element.cumulativeOffset(event.target).left + Element.getWidth(event.target) + 20 + 'px';
-                        helpBox.style.top = Element.cumulativeOffset(event.target).top - Element.getHeight(helpBox) + 'px';
-            
+                        helpBox.style.left = Element.cumulativeOffset($('comment')).left + Element.getWidth($('comment')) + 20 + 'px';
+                        helpBox.style.top = Element.cumulativeOffset($('comment')).top - Element.getHeight(helpBox) + 'px';
+
                         //Title
                         var answersTitle = $('answers-popup-heading');
                         if (typeof this.title != 'undefined') {
@@ -171,11 +232,11 @@
                         } else {
                             $(answersTitle).hide();
                         }
-            
+
                         //Horizontal line
                         var answerText = $('answers-popup-text'),
                             answerContent = $('answers-popup-content');
-                            
+
                         answerText.innerHTML = '';
                         for(a = 0; a < answers.length; a++){
                             if(answers[a].summary.indexOf('{{orders_string}}') > 0){
@@ -183,14 +244,18 @@
                             }
                             var item = '<div class="nanorepItem"><div class="nanorepItemTitle"><h5>' + answers[a].title + '</h5></div><div class="nanorepItemDescription">' + answers[a].summary + '</div></div>';
                             answerText.insert(item);
+                            $$('.nanorepItem a').each(function(el){
+                              el.observe('click', function(e){
+                                getNanoRepAnswerById($(e.target).getAttribute('nanoreplinkid'), _nanoRepContactusSessionId, e);
+                              })
+                            });
                         }
-                        
+
                         $$('.nanorepItemTitle').each(function(el){
                             el.observe('click', function(e) {
                                 this.up('.nanorepItem').toggleClassName('isOpen');
                             });
                         });
-            
                         $(helpBox).show();
                         this.active = true;
                         var closeButton = $('answers-popup-close');
@@ -203,10 +268,10 @@
                         $(helpBox).hide();
                         this.active = false;
                     }
-            
+
                     Event.stop(event);
                 },
-            
+
                 hide: function(){
                     var helpBox = $('answers-popup');
                     if (helpBox) {
@@ -219,13 +284,13 @@
                     }
                 },
             };
-            
+
             Event.observe(window, 'resize', function(event) {
                 if (nanoRepContactUsAnswers.active) {
                     nanoRepContactUsAnswers.showHelp(event);
                 }
             });
-            
-        </script> 
+
+        </script>
     <?php endif; ?>
 <?php endif; ?>

@@ -4,10 +4,10 @@
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		nanoRep. 
+ * @company		nanoRep.
  * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */	
+ */
 -->
 <config>
     <tabs>
@@ -58,10 +58,12 @@
 						<username translate="label">
 							<label>Username</label>
 							<frontend_type>text</frontend_type>
+              <backend_model>nanorepwidgets/system_config_backend_Username</backend_model>
 							<sort_order>2</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
+              <comment>Please provide the account name without '@company'</comment>
 						</username>
 						<password translate="label">
 							<label>my.nanoRep Password</label>

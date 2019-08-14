@@ -1,18 +1,18 @@
 <?php
 /**
- * MCI Co.
- * http://www.mage.co.il
+ * NanoRep Widgets Extension
  *
- * @package    Mci_Core
- * @copyright  Copyright (c) 2014 MCI Co. (http://www.mage.co.il)
- * @author	   info@mage.co.il
+ * @package		NanoRep_Widgets
+ * @company		nanoRep.
+ * @website		http://www.nanorep.com
+ * @author		Dan Aharon-Shalom
  */
 
 class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mage_Core_Model_Config_Data {
-    
+
 	protected function _afterSaveCommit()
     {
-        if($this->isValueChanged() || Mage::getStoreConfig('nanorepwidgets/account_settings/conversion_script') == "")   
+        if($this->isValueChanged() || Mage::getStoreConfig('nanorepwidgets/account_settings/conversion_script') == "")
         {
             if (function_exists("curl_init")) {
             	$url = "https://my.nanorep.com/api/addconversion";
@@ -27,11 +27,11 @@ class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mag
 					$currencyCode = "NIS";
 				}
 				$request->setData('currency', $currencyCode);
-				
+
 				if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
 					Mage::log("Request: " . $url ."?" . $request->toPostData(), null, "nanorep-conversion-script-debug.log");
 				}
-				
+
                 $CR = curl_init();
                 curl_setopt($CR, CURLOPT_URL, $url);
                 curl_setopt($CR, CURLOPT_POST, 1);
@@ -48,7 +48,7 @@ class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mag
                     if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
 						Mage::log("Error: " . $error, null, "nanorep-conversion-script-debug.log");
 					}
-					
+
                 }
 				if($result){
 					if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
@@ -75,7 +75,7 @@ class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mag
 								$config = Mage::getModel("core/config");
 								$script = str_replace("ORDER_ID", "{{order_id}}", str_replace("REVENUE", "{{order_amount}}", $result->script));
 								$config->saveConfig('nanorepwidgets/account_settings/conversion_script', $script, "default", 0);
-							}	
+							}
 						}
 					}
 					catch(Zend_Json_Exception $e){
@@ -86,6 +86,6 @@ class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mag
                 curl_close($CR);
             }
         }
-        return $this;  
+        return $this;
     }
 }

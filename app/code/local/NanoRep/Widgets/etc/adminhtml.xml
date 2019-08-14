@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /**
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		nanoRep. 
+ * @company		nanoRep.
  * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */	
+ */
 -->
 <config>
 	<acl>
@@ -59,7 +59,7 @@
 			<children>
 				<mynanorep translate="title" module="nanorepwidgets">
 					<title>my.nanoRep</title>
-					<action>nanorep/adminhtml_mynanorep/index</action>
+					<action>adminhtml/mynanorep/index</action>
 					<sort_order>0</sort_order>
 				</mynanorep>
 				<configuration translate="title" module="nanorepwidgets">
