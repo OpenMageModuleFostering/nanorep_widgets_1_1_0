@@ -19,7 +19,7 @@ class Nanorep_Widgets_Model_System_Config_Backend_ConversionTracking extends Mag
 				$request = Mage::getModel('nanorepwidgets/request');
 				$request->setData('account', $this->getFieldsetDataValue("account_name"));
 				$request->setData('url', rtrim(Mage::getBaseUrl(),"/"));
-				$request->setData('apikey', $this->getFieldsetDataValue("account_api_key"));
+				$request->setData('apikey', urlencode($this->getFieldsetDataValue("account_api_key")));
 				$request->setData('ab', '5');
 				$request->setData('name', 'Conversion');
 				$currencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
