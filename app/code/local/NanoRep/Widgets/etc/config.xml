@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /**
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		nanoRep. 
+ * @company		nanoRep.
  * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */	
+ */
 -->
 <config>
     <modules>
         <NanoRep_Widgets>
-            <version>2.1.1</version>
+            <version>2.1.2</version>
         </NanoRep_Widgets>
     </modules>
     <global>
@@ -52,7 +52,7 @@
             </nanorepwidgets_setup>
         </resources>
     </global>
-    
+
     <admin>
     	<secure_url>
     		<nanorep>/nanorep/adminhtml_mynanorep/index</nanorep>

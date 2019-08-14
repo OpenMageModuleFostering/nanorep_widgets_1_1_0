@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /**
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		nanoRep. 
+ * @company		nanoRep.
  * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */	
+ */
 -->
 <layout version="0.1.0">
     <default>
@@ -17,15 +17,15 @@
         <reference name="before_body_end">
             <block type="nanorepwidgets/float" ifconfig="nanorepwidgets/float_widget/active" name="nanorep_float_widget" as="nanorep.float.widget" template="nanorepwidgets/float.phtml" />
             <block type="nanorepwidgets/events" name="nanorep_events" as="nanorep_events" template="nanorepwidgets/events.phtml" />
-        </reference> 
+        </reference>
     </default>
-    
+
     <checkout_onepage_success>
     	<reference name="after_body_end">
     		<block type="nanorepwidgets/success" name="nanorep_success" as="nanorep_success" template="nanorepwidgets/success.phtml" />
         </reference>
     </checkout_onepage_success>
-    
+
     <catalog_product_view>
         <reference name="head">
             <action method="addItem"><type>skin_js</type><file>nanorepwidgets/head.js</file></action>
@@ -35,33 +35,36 @@
         	<block type="nanorepwidgets/embed" before="-" name="nanorep.embeded.widget" as="nanorep_embeded_widget" template="nanorepwidgets/embed.phtml" />
 	    </reference>
     </catalog_product_view>
-    
+
     <nanorepwidgets_index_getcustomerhistory>
         <block type="nanorepwidgets/adminhtml_order_grid" name="root" output="toHtml" />
     </nanorepwidgets_index_getcustomerhistory>
-    
+
     <nanorepwidgets_index_getcustomerhistoryjson>
         <block type="nanorepwidgets/customerhistoryjson" name="root" output="toHtml"/>
     </nanorepwidgets_index_getcustomerhistoryjson>
-   
+
 	<nanorepwidgets_index_cdc>
         <block type="core/template" name="root" output="toHtml" template="nanorepwidgets/cdc.phtml" />
     </nanorepwidgets_index_cdc>
-    
+
     <nanorepwidgets_account_login>
     		<update handle="nanorepwidgets_page_empty" />
+        <reference name="head">
+          <action method="addItem"><type>skin_css</type><file>nanorepwidgets/head.css</file></action>
+        </reference>
     		<reference name="content">
 	        	<block type="nanorepwidgets/login" template="nanorepwidgets/login.phtml" />
     		</reference>
     </nanorepwidgets_account_login>
-    
+
     <nanorepwidgets_account_forgotpassword>
     		<update handle="nanorepwidgets_page_empty" />
     		<reference name="content">
 	        	<block type="nanorepwidgets/forgotpassword" name="forgotPassword" template="nanorepwidgets/forgotpassword.phtml" />
     		</reference>
     </nanorepwidgets_account_forgotpassword>
-    
+
     <nanorepwidgets_order_list>
     	<update handle="page_empty" />
     	<remove name="nanorep_header_script" />
@@ -71,16 +74,16 @@
         	<block type="sales/order_history" template="nanorepwidgets/order/list.phtml" />
     	</reference>
     </nanorepwidgets_order_list>
-    
+
     <contacts_index_index>
     	<reference name="head">
     		<action method="addItem"><type>skin_css</type><file>nanorepwidgets/contactus.css</file></action>
 		</reference>
     	<reference name="before_body_end">
             <block type="nanorepwidgets/contactus" ifconfig="nanorepwidgets/contact_us_widget/active" name="nanorep_contact_us_widget" as="nanorep.contact_us.widget" template="nanorepwidgets/contact_us.phtml" />
-        </reference> 
+        </reference>
     </contacts_index_index>
-    
+
      <!-- Custom page layout handles -->
     <nanorepwidgets_page_empty translate="label">
         <label>All Empty Layout Pages</label>

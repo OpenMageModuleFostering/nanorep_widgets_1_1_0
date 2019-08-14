@@ -1,0 +1,183 @@
+.answers-popup {
+  background: #FFFFFF;
+  border: 5px solid #cccccc;
+  margin: 12px 0 0;
+  position: absolute;
+  text-align: left;
+  width: 450px;
+  z-index: 100;
+}
+@media only screen and (min-width: 771px) {
+  .answers-popup.answers-popup-right {
+    left: 10px !important;
+  }
+  .answers-popup.answers-popup-left {
+    left: auto !important;
+    right: 10px !important;
+  }
+}
+@media only screen and (max-width: 770px) {
+  .answers-popup {
+    width: 100%;
+    left: 0px !important;
+  }
+}
+.answers-popup .answers-popup-heading {
+  padding: 8px 10px;
+  margin-right: 40px;
+  width: auto;
+}
+.answers-popup .answers-popup-heading h3 {
+  font-size: 14px;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: break-word;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+@media only screen and (max-width: 479px) {
+  .answers-popup .answers-popup-heading h3 {
+    text-align: center;
+  }
+}
+.answers-popup .answers-popup-close {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 36px;
+  width: 36px;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+}
+.answers-popup .answers-popup-content {
+  border-top: 1px solid #ededed;
+  padding: 10px;
+  margin: 0 10px;
+  overflow: hidden;
+  text-align: left;
+}
+@media only screen and (max-width: 479px) {
+  .answers-popup .answers-popup-content {
+    text-align: center;
+  }
+}
+.answers-popup .answers-popup-checkout {
+  padding: 10px 0;
+}
+.answers-popup .answers-popup-checkout form:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.answers-popup .answers-popup-checkout span {
+  display: block;
+}
+.answers-popup .answers-popup-checkout .button {
+  float: left;
+  margin: 0 2px;
+  clear: left;
+}
+.answers-popup .answers-popup-checkout .additional-addtocart-box {
+  float: left;
+  min-width: 210px;
+}
+.answers-popup .answers-popup-checkout .additional-addtocart-box li {
+  list-style-type: none;
+}
+.answers-popup .answers-popup-checkout .paypal-logo {
+  width: auto;
+}
+.answers-popup .answers-popup-checkout .paypal-logo a {
+  display: inline-block;
+  float: left;
+  clear: left;
+}
+.answers-popup .answers-popup-checkout .paypal-logo .paypal-or {
+  float: left;
+  text-align: center;
+  padding: 5px 15px;
+  clear: left;
+}
+.answers-popup .answers-popup-checkout .paypal-logo:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.answers-popup .answers-popup-checkout .paypal-logo .bml_button a {
+  clear: left;
+}
+@media only screen and (max-width: 479px) {
+  .answers-popup .answers-popup-checkout {
+    text-align: center;
+  }
+  .answers-popup .answers-popup-checkout .button,
+  .answers-popup .answers-popup-checkout .additional-addtocart-box,
+  .answers-popup .answers-popup-checkout .paypal-logo a,
+  .answers-popup .answers-popup-checkout .paypal-logo .paypal-or {
+    float: none;
+  }
+  .answers-popup .answers-popup-checkout .additional-addtocart-box {
+    min-width: 0px;
+  }
+  .answers-popup .answers-popup-checkout .paypal-logo .paypal-or {
+    margin: 0px;
+    margin-bottom: 10px;
+  }
+}
+.answers-popup .answers-popup-checkout:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.answers-popup .answers-popup-price {
+  padding: 10px 0;
+}
+.answers-popup .answers-popup-price .price-box,
+.answers-popup .answers-popup-price .price-box .special-price {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+@media only screen and (max-width: 479px) {
+  .answers-popup .answers-popup-price {
+    text-align: center;
+    padding-top: 0px;
+  }
+}
+.answers-popup .answers-popup-text {
+  padding: 10px 0;
+  margin: 0 10px;
+  word-wrap: break-word;
+}
+.answers-popup .answers-popup-text,
+.answers-popup .answers-popup-only-text {
+    font-size: 12px;
+/*
+  border-top: 1px solid #ededed;
+*/
+}
+
+.answers-popup .answers-popup-text h1 {
+display: block;
+font-size: 1em;
+-webkit-margin-before: 0.67em;
+-webkit-margin-after: 0.67em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+font-weight: bold;
+}
+
+.nanorepItem { font-size:12px; }
+.nanorepItem:last-child { margin-bottom:0;}
+.nanorepItem .nanorepItemTitle { font-weight:normal; font-size:14px; padding:0px 0px 5px 13px; color:#007DBF; cursor:pointer;  background:url(./images/mp_sprites.gif) no-repeat 0px 5px;}
+.nanorepItem .nanorepItemTitle:hover { color:#05A9FF;}
+.nanorepItem.isOpen .nanorepItemTitle { color:#05A9FF; background-position:0px -300px;}
+.nanorepItem .nanorepItemDescription { display:none; line-height:120%; padding:0px 0px 8px 13px;}
+.nanorepItem.isOpen .nanorepItemDescription { display:block;}
+.nanorepItem .nanorepItemDescription p{ padding-bottom:5px; margin:0;}
+.nanorepItem .nanorepItemDescription a { color:#007DBF;}
+.nanorepItem .nanorepItemDescription a:hover { color:#05A9FF;}
+.nanorepItem .nanorepItemDescription iframe { border:solid 1px #6F675E;}
