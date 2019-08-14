@@ -168,6 +168,14 @@
 <!-- 							<show_in_website>1</show_in_website> -->
 <!-- 							<show_in_store>1</show_in_store> -->
 <!-- 						</password> -->
+						<div_css translate="label">
+							<label>Position Div CSS</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</div_css>
 						<width translate="label">
 							<label>Widget Width</label>
 							<frontend_type>text</frontend_type>

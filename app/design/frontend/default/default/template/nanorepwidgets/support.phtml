@@ -10,12 +10,18 @@ if (!is_null($this -> getProduct())) {
 
 <?php if($this->helper("nanorepwidgets")->isSupportWidgetEnabled()):?>
 <!--do not modify this script -->
-<div id='nanoRepEmbedContainer'></div>
 <?php $this->getXml(true); ?>
 <?php $this->getXml(); ?>
 <script type='text/javascript'>
 
     document.observe("dom:loaded", function() {
+    	if($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>').length > 0){
+    		$$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].insert("<div id='nanoRepEmbedContainer'></div>");
+    		//$('nanoRepEmbedContainer').insert($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].descendants()[0]);
+    	}
+    	else{
+    		$$('.box-collateral.box-additional')[0].insert("<div id='nanoRepEmbedContainer'></div>");
+    	}
         onloadFnc();    
     }); 
 

@@ -59,4 +59,5 @@ class NanoRep_Widgets_Model_Observer
 		$queries = $this->_session->getData('nanorep_queries');
 		return $queries;
 	}
+	
 }
