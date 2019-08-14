@@ -11,7 +11,7 @@
 class NanoRep_Widgets_Model_Observer
 {
 	private $session;
-	
+    
 	public function __construct(){
 		$this->_session = Mage::helper('nanorepwidgets')->getSession();
 	}

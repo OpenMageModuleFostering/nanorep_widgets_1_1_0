@@ -55,6 +55,13 @@
     		</reference>
     </nanorepwidgets_account_login>
     
+    <nanorepwidgets_account_forgotpassword>
+    		<update handle="nanorepwidgets_page_empty" />
+    		<reference name="content">
+	        	<block type="nanorepwidgets/forgotpassword" name="forgotPassword" template="nanorepwidgets/forgotpassword.phtml" />
+    		</reference>
+    </nanorepwidgets_account_forgotpassword>
+    
     <nanorepwidgets_order_list>
     	<update handle="page_empty" />
     	<remove name="nanorep_header_script" />
@@ -64,6 +71,15 @@
         	<block type="sales/order_history" template="nanorepwidgets/order/list.phtml" />
     	</reference>
     </nanorepwidgets_order_list>
+    
+    <contacts_index_index>
+    	<reference name="head">
+    		<action method="addItem"><type>skin_css</type><file>nanorepwidgets/contactus.css</file></action>
+		</reference>
+    	<reference name="before_body_end">
+            <block type="nanorepwidgets/contactus" ifconfig="nanorepwidgets/contact_us_widget/active" name="nanorep_contact_us_widget" as="nanorep.contact_us.widget" template="nanorepwidgets/contact_us.phtml" />
+        </reference> 
+    </contacts_index_index>
     
      <!-- Custom page layout handles -->
     <nanorepwidgets_page_empty translate="label">

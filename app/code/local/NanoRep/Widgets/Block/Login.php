@@ -19,4 +19,8 @@ class NanoRep_Widgets_Block_Login extends Mage_Customer_Block_Form_Login
     {
         return Mage::getUrl('nanorepwidgets/account/loginPost');
     }
+    
+    public function getForgotPasswordUrl(){
+        return Mage::getUrl('nanorepwidgets/account/forgotPassword');
+    }
 }

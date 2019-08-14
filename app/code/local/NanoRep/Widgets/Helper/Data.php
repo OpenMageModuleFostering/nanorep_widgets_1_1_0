@@ -11,19 +11,40 @@
 
 class NanoRep_Widgets_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const NANOREP_SERVER = "my.nanorep.com";
 	public function getAccountName(){
 		return Mage::getStoreConfig("nanorepwidgets/account_settings/account_name");
 	}
+    
+    public function isContactUsWidgetActive(){
+        if(Mage::getStoreConfigFlag("nanorepwidgets/contact_us_widget/active")){
+            return true;
+        }
+        return false;
+    }
+    
+    public function getServer(){
+        $server = "http://";
+        $isSecure = Mage::app()->getStore()->isCurrentlySecure();
+        if($isSecure){
+            $server = "https://";    
+        }
+        $server .= self::NANOREP_SERVER;
+        return $server;
+    }
 	
 	public function isFloatWidgetActiveForCurrentPage(){
-	    if(Mage::getStoreConfigFlag("nanorepwidgets/float_widget/active_pages")){
-            $module = Mage::app()->getRequest()->getModuleName();
-            $controller = Mage::app()->getRequest()->getControllerName();
-            return($module == 'catalog' && $controller == 'product');
+	    if(Mage::getStoreConfigFlag("nanorepwidgets/float_widget/active")){
+    	    if(Mage::getStoreConfigFlag("nanorepwidgets/float_widget/active_pages")){
+                $module = Mage::app()->getRequest()->getModuleName();
+                $controller = Mage::app()->getRequest()->getControllerName();
+                return($module == 'catalog' && $controller == 'product');
+            }
+    		else{
+    			return true;
+    		}
         }
-		else{
-			return true;
-		}
+        return false;
 			
 	}
 	

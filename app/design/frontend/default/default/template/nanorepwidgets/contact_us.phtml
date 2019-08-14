@@ -1,0 +1,225 @@
+<?php
+/**
+ * NanoRep Widgets Extension
+ *
+ * @package     NanoRep_Widgets
+ * @company     Omniscience Co. 
+ * @website     http://www.omniscience.co.il
+ * @author      Dan Aharon-Shalom
+ */
+ ?>
+ <?php if(Mage::helper("nanorepwidgets")->isContactUsWidgetActive()): ?>
+    <?php $fileds = $this->getFieldsCssCommaSeperated();?>
+    <?php if($fileds != ""): ?>
+        <script type="text/javascript" src="<?php echo $this->getSkinUrl('nanorepwidgets/jsonp.js') ?>"></script>
+        <script type="text/javascript">
+            var _nanoRepContactusSessionId = '';
+        
+            function getNanoRepContactUsSessionId(query, e){
+                var getSessionIdUrl = "<?php echo $this->getApiServerUrl('hello.js'); ?>";
+                new Ajax.JSONRequest(getSessionIdUrl, {
+                  callbackParamName: "cb",
+                  parameters: {
+                      url : window.location.href,
+                      kb : "<?php echo $this->getKb(); ?>",
+                      sid : "0"
+                  },
+                  onCreate: function(response) {
+                    // console.log("1: create", response, response.responseJSON);
+                  },
+                  onSuccess: function(response) {
+                      var data = response.responseJSON;
+                    _nanoRepContactusSessionId = data['sessionId'];
+                    setTimeout(function() {
+                        _nanoRepContactusSessionId = ''
+                    }, data['timeout'] * 1000);
+                    // console.log("Nanorep Session Opened: " + _nanoRepContactusSessionId);
+                    queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
+                    // console.log("1: success", response, response.responseJSON);
+                  },
+                  onFailure: function(response) {
+                    // console.log("1: fail", response, response.responseJSON);
+                  },
+                  onComplete: function(response) {
+                    // console.log("1: complete", response, response.responseJSON);
+                  }
+                });
+            }
+            
+            function queryNanoRepContactUs(query, sid, e){
+                var nanoRepQueryApiUrl = "<?php echo $this->getApiServerUrl("q.js")?>"
+                
+                if(sid == ''){
+                    getNanoRepContactUsSessionId();
+                }
+                new Ajax.JSONRequest(nanoRepQueryApiUrl, {
+                      callbackParamName: "cb",
+                      parameters: {
+                          auto : "false",
+                          text : query,
+                          sameQ : "false",
+                          suggestion : "false",
+                          kb : "<?php echo $this->getKb(); ?>",
+                          "sid" : sid
+                      },
+                      onCreate: function(response) {
+                        // console.log("1: create", response, response.responseJSON);
+                      },
+                      onSuccess: function(response) {
+                        var data = response.responseJSON;
+                        // console.log(e);
+                        // console.log(data);
+                        nanoRepContactUsAnswers.title = "<?php echo $this->getTitle(); ?>";
+                        if(data.answers.length > 0){
+                            for(a = 0; a < data.answers.length; a++){  
+                                if(data.answers[a].context != undefined){
+                                    data.answers.splice(a, 1);
+                                }
+                            }
+                            if(data.answers.length > 0){
+                                nanoRepContactUsAnswers.show(e, data.answers);
+                            }
+                            else{
+                                $('answers-popup-text').innerHTML = '';
+                                nanoRepContactUsAnswers.hide();
+                                
+                            }
+                                
+                        }
+                        else{
+                            $('answers-popup-text').innerHTML = '';
+                            nanoRepContactUsAnswers.hide();
+                        }
+                        // console.log("1: success", response, response.responseJSON);
+                      },
+                      onFailure: function(response) {
+                        // console.log("1: fail", response, response.responseJSON);
+                      },
+                      onComplete: function(response) {
+                        // console.log("1: complete", response, response.responseJSON);
+                      }
+                    });
+            }
+            
+            var fields_css = [<?php echo $fileds ?>];
+            if(fields_css.length > 0){
+                for(var i = 0; i < fields_css.length; i++){
+                    $$(fields_css[i])[0].observe('keyup', function(e){
+                        var query = e.target.value; 
+                        if(query != ""){
+                            if(_nanoRepContactusSessionId == ''){
+                                getNanoRepContactUsSessionId(query, e);
+                            }
+                            else{
+                                queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+        
+        <div id="answers-popup" class="answers-popup" style="display:none">
+            <a href="#" class="answers-popup-close" id="answers-popup-close">×</a>
+            <div class="answers-popup-heading"><h3 id="answers-popup-heading"></h3></div>
+            <div class="answers-popup-content" id="answers-popup-content">
+                <div class="answers-popup-text" id="answers-popup-text"></div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            nanoRepContactUsAnswers = {
+
+                active: false,
+            
+                show: function(event, answers) {
+                    var helpBox = $('answers-popup'),
+                        bodyNode = $$('body')[0];
+                        isIE6 = typeof document.body.style.maxHeight === "undefined";
+                    if (!helpBox) {
+                        return;
+                    }
+            
+                    //Move help box to be right in body tag
+                    var bodyNode = $$('body')[0];
+                    if (helpBox.parentNode != bodyNode) {
+                        helpBox.remove();
+                        bodyNode.insert(helpBox);
+                    }
+                    if (!this.active /*this != nanoRepContactUsAnswers*/ /*&& this.active != this.link*/) {
+                        helpBox.style.display = 'none';
+                        if (!helpBox.offsetPosition) {
+                            helpBox.offsetPosition = {left:0, top: 0};
+                        }
+            
+                        helpBox.removeClassName('answers-popup-right');
+                        helpBox.removeClassName('answers-popup-left');
+                        helpBox.style.left = Element.cumulativeOffset(event.target).left + Element.getWidth(event.target) + 20 + 'px';
+                        helpBox.style.top = Element.cumulativeOffset(event.target).top - Element.getHeight(helpBox) + 'px';
+            
+                        //Title
+                        var answersTitle = $('answers-popup-heading');
+                        if (typeof this.title != 'undefined') {
+                            Element.update(answersTitle, this.title);
+                            $(answersTitle).show();
+                        } else {
+                            $(answersTitle).hide();
+                        }
+            
+                        //Horizontal line
+                        var answerText = $('answers-popup-text'),
+                            answerContent = $('answers-popup-content');
+                            
+                        answerText.innerHTML = '';
+                        for(a = 0; a < answers.length; a++){
+                            if(answers[a].summary.indexOf('{{orders_string}}') > 0){
+                                answers[a].summary = answers[a].summary.replace('{{orders_string}}', _nRepData["customParams"]['orders_string']);
+                            }
+                            var item = '<div class="nanorepItem"><div class="nanorepItemTitle"><h5>' + answers[a].title + '</h5></div><div class="nanorepItemDescription">' + answers[a].summary + '</div></div>';
+                            answerText.insert(item);
+                        }
+                        
+                        $$('.nanorepItemTitle').each(function(el){
+                            el.observe('click', function(e) {
+                                this.up('.nanorepItem').toggleClassName('isOpen');
+                            });
+                        });
+            
+                        $(helpBox).show();
+                        this.active = true;
+                        var closeButton = $('answers-popup-close');
+                        if (closeButton) {
+                            $(closeButton).stopObserving('click');
+                            Event.observe(closeButton, 'click', nanoRepContactUsAnswers.hide.bind(this));
+                            this.active = false;
+                        }
+                    } else {
+                        $(helpBox).hide();
+                        this.active = false;
+                    }
+            
+                    Event.stop(event);
+                },
+            
+                hide: function(){
+                    var helpBox = $('answers-popup');
+                    if (helpBox) {
+                        var isIE6 = typeof document.body.style.maxHeight === "undefined";
+                        $(helpBox).hide();
+                        if (isIE6) {
+                            nanoRepContactUsAnswers.showSelects();
+                        }
+                        this.active = false;
+                    }
+                },
+            };
+            
+            Event.observe(window, 'resize', function(event) {
+                if (nanoRepContactUsAnswers.active) {
+                    nanoRepContactUsAnswers.showHelp(event);
+                }
+            });
+            
+        </script> 
+    <?php endif; ?>
+<?php endif; ?>

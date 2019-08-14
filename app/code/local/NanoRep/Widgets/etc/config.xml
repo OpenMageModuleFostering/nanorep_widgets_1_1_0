@@ -12,7 +12,7 @@
 <config>
     <modules>
         <NanoRep_Widgets>
-            <version>2.0.8</version>
+            <version>2.1.0</version>
         </NanoRep_Widgets>
     </modules>
     <global>
@@ -124,6 +124,12 @@
 				<upsells_products>1</upsells_products>
 				<crosssells_products>1</crosssells_products>
             </account_settings>
+            <contact_us_widget>
+            	<active>1</active>
+            	<title>Featured Questions</title>
+            	<kb>English</kb>
+            	<fields_css>a:1:{s:18:"_1424883221899_899";a:1:{s:3:"css";s:8:"#comment";}}</fields_css>
+            </contact_us_widget>
             <float_widget>
                 <active>0</active>
                 <active_pages>0</active_pages>

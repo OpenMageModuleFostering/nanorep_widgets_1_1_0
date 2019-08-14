@@ -25,6 +25,18 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
     {
         return Mage::getSingleton('customer/session');
     }
+    
+    /**
+     * Get model by path
+     *
+     * @param string $path
+     * @param array|null $arguments
+     * @return false|Mage_Core_Model_Abstract
+     */
+    public function _getModel($path, $arguments = array())
+    {
+        return Mage::getModel($path, $arguments);
+    }
 	
 	public function indexAction()
 	{
@@ -177,6 +189,66 @@ class NanoRep_Widgets_AccountController extends Mage_Core_Controller_Front_Actio
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
+    }
+    
+    
+     /**
+     * Forgot customer password page
+     */
+    public function forgotPasswordAction()
+    {
+        $this->loadLayout();
+
+        $this->getLayout()->getBlock('forgotPassword')->setEmailValue(
+            $this->_getSession()->getForgottenEmail()
+        );
+        $this->_getSession()->unsForgottenEmail();
+
+        $this->_initLayoutMessages('customer/session');
+        $this->renderLayout();
+    }
+    
+     /**
+     * Forgot customer password action
+     */
+    public function forgotPasswordPostAction()
+    {
+        $email = (string) $this->getRequest()->getPost('email');
+        if ($email) {
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                $this->_getSession()->setForgottenEmail($email);
+                $this->_getSession()->addError($this->__('Invalid email address.'));
+                $this->_redirect('nanorepwidgets/account/forgotpassword');
+                return;
+            }
+
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer = $this->_getModel('customer/customer')
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                ->loadByEmail($email);
+
+            if ($customer->getId()) {
+                try {
+                    $newResetPasswordLinkToken =  $this->_getHelper('customer')->generateResetPasswordLinkToken();
+                    $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+                    $customer->sendPasswordResetConfirmationEmail();
+                } catch (Exception $exception) {
+                    $this->_getSession()->addError($exception->getMessage());
+                    $this->_redirect('nanorepwidgets/account/forgotpassword');
+                    return;
+                }
+            }
+            $this->_getSession()
+                ->addSuccess( $this->_getHelper('customer')
+                ->__('If there is an account associated with %s you will receive an email with a link to reset your password.',
+                    $this->_getHelper('customer')->escapeHtml($email)));
+            $this->_redirect('nanorepwidgets/account/login');
+            return;
+        } else {
+            $this->_getSession()->addError($this->__('Please enter your email.'));
+            $this->_redirect('nanorepwidgets/account/forgotpassword');
+            return;
+        }
     }
 	
 }
