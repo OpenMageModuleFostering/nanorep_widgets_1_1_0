@@ -45,30 +45,30 @@
     (function (){
         if (_nRepData["customParams"])
         {
-            if (_nRepData["customParams"]['orders'])
-            {
+            // if (_nRepData["customParams"]['orders'])
+            // {
                 var s = [];
-                var d = _nRepData["customParams"]['orders'];
-                s.push("<table class='orderNRD' width='100%'><tr class='orders'><th>Order #</th><th>Status</th><th>Details</th></tr>");
-                for (var i in d)
-                {
-                    for (var j in d[i])
-                    {
-                        if (isNaN(j)) continue;
-                        var order = d[i][j];
-                        if (typeof (order) != "object") continue;
-                        s.push("<tr><td><b>");
-                        s.push(j);
-                        s.push("</b></td><td>");
-                        s.push(order.status);
-                        s.push("</td><td><a href='");
-                        s.push(order.link);
-                        s.push("'>Click for details</a></td></tr>");
-                    }
-                }
-                s.push("</table>");
+                // var d = _nRepData["customParams"]['orders'];
+                s.push("<iframe src='<?php echo $this->getUrl('nanorep/account/login') ?>' width='100%' height='360px' style='border: none;'/>");
+                // for (var i in d)
+                // {
+                    // for (var j in d[i])
+                    // {
+                        // if (isNaN(j)) continue;
+                        // var order = d[i][j];
+                        // if (typeof (order) != "object") continue;
+                        // s.push("<tr><td><b>");
+                        // s.push(j);
+                        // s.push("</b></td><td>");
+                        // s.push(order.status);
+                        // s.push("</td><td><a href='");
+                        // s.push(order.link);
+                        // s.push("'>Click for details</a></td></tr>");
+                    // }
+                // }
+                // s.push("</table>");
                 _nRepData["customParams"]['orders_string'] = s.join('');
-            }
+            // }
              if (_nRepData["customParams"]['relatedProducts'])
             {
                 parseOrdersNrepData('relatedProducts', "You may also be interested in the following product(s):");

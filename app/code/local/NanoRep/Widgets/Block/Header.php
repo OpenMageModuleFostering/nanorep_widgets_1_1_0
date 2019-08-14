@@ -102,7 +102,7 @@ class NanoRep_Widgets_Block_Header extends Mage_Core_Block_Template
                     }
                 }
                 if(!empty($orders)){
-					return Zend_Json::encode($orders);
+					return $orders;
                 }
 				
 				return "";
@@ -141,7 +141,7 @@ class NanoRep_Widgets_Block_Header extends Mage_Core_Block_Template
 	
 	private function _getProductRelatedProducts($product){
         if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/related_products')){
-            $related_product_collection = $product->getRelatedProductCollection()->addAttributeToSelect("*");
+            $related_product_collection = $product->getRelatedProductCollection()->addAttributeToSelect("*")->addStoreFilter();
             if($related_product_collection->count() > 0){
                 $related_products = array();
                 foreach($related_product_collection as $_product){
@@ -154,7 +154,7 @@ class NanoRep_Widgets_Block_Header extends Mage_Core_Block_Template
     
     private function _getProductUpSellsProducts($product){
         if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/upsells_products')){
-            $upsells_product_collection = $product->getUpSellProductCollection()->addAttributeToSelect("*");
+            $upsells_product_collection = $product->getUpSellProductCollection()->addAttributeToSelect("*")->addStoreFilter();
             if($upsells_product_collection->count() > 0){
                 $upsells_products = array();
                 foreach($upsells_product_collection as $_product){
@@ -167,7 +167,7 @@ class NanoRep_Widgets_Block_Header extends Mage_Core_Block_Template
     
     private function _getProductCrossSellProducts($product){
         if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/crosssells_products')){
-            $crosssells_product_collection = $product->getCrossSellProductCollection()->addAttributeToSelect("*");
+            $crosssells_product_collection = $product->getCrossSellProductCollection()->addAttributeToSelect("*")->addStoreFilter();
             if($crosssells_product_collection->count() > 0){
                 $crosssells_products = array();
                 foreach($crosssells_product_collection as $_product){

@@ -47,4 +47,24 @@
 	<nanorepwidgets_index_cdc>
         <block type="core/template" name="root" output="toHtml" template="nanorepwidgets/cdc.phtml" />
     </nanorepwidgets_index_cdc>
+    
+    <nanorepwidgets_account_login>
+    	<update handle="page_empty" />
+    	<remove name="nanorep_header_script" />
+    	<remove name="nanorep_float_widget" />
+    	<remove name="nanorep_events" />
+    	<reference name="content">
+        	<block type="nanorepwidgets/login" template="nanorepwidgets/login.phtml" />
+    	</reference>
+    </nanorepwidgets_account_login>
+    
+    <nanorepwidgets_order_list>
+    	<update handle="page_empty" />
+    	<remove name="nanorep_header_script" />
+    	<remove name="nanorep_float_widget" />
+    	<remove name="nanorep_events" />
+    	<reference name="content">
+        	<block type="sales/order_history" template="nanorepwidgets/order/list.phtml" />
+    	</reference>
+    </nanorepwidgets_order_list>
 </layout>

@@ -47,8 +47,22 @@ class NanoRep_Widgets_IndexController extends Mage_Core_Controller_Front_Action
 		}
 	}
 	public function cdcAction(){
+		if ($this->_getSession()->isLoggedIn()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+        $this->getResponse()->setHeader('Login-Required', 'true');
 		$this->loadLayout();
         $this->renderLayout();	
 	}	
 	
+	/**
+     * Retrieve customer session model object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
 }
