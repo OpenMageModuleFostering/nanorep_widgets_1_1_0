@@ -1,0 +1,60 @@
+<?php
+/**
+ * NanoRep Widgets Extension
+ *
+ * @package		NanoRep_Widgets
+ * @company		nanoRep.
+ * @website		http://www.nanorep.com
+ * @author		Dan Aharon-Shalom
+ */
+?>
+<?php if($this->helper("nanorepwidgets")->isEmbededWidgetEnabled()):
+?>
+<?php $this -> getXml(true); ?>
+<script type='text/javascript'>
+	document.observe("dom:loaded", function() {
+		if($("nanoRepEmbedContainer") == undefined ){
+			<?php $div_css = $this -> helper("nanorepwidgets") -> getEmbededWidgetDivCss(); ?>
+			if($$('<?php echo $div_css; ?>').length > 0){
+				$$('<?php echo $div_css; ?>')[0].insert("<div aria-live='polite' id='nanoRepEmbedContainer'></div>");
+			}
+			else{
+				$$('.col-main')[0].insert("<div aria-live='polite' id='nanoRepEmbedContainer'></div>");
+			}
+				onloadFnc();
+		}
+	});
+
+	_nRepData['kb'] = '19047683';
+	/* API here */;
+	_nRepData['embed'] = {
+		account : '<?php echo $this -> helper("nanorepwidgets") -> getAccountName(); ?>',
+		container : 'nanoRepEmbedContainer',
+		width : <?php echo $this -> helper("nanorepwidgets") -> getEmbededWidgetWidth(); ?>,
+		maxHeight : <?php echo $this -> helper("nanorepwidgets") -> getEmbededWidgetMaxHeight(); ?>,
+		dynamicSize : true,
+		cdcFrame : '<?php echo Mage::getBaseUrl() . 'nanorep/index/cdc'; ?>',
+		cdcVersion : 3,
+		scriptVersion : '2.40.1.60'
+	};
+	(function() {
+		var windowLoadFunc = function() {
+			var _nRepData = window._nRepData || [];
+			_nRepData['windowLoaded'] = true;
+			if ( typeof (_nRepData['windowOnload']) === 'function')
+				_nRepData['windowOnload']();
+		};
+		if (window.attachEvent)
+			window.attachEvent('onload', windowLoadFunc);
+		else if (window.addEventListener)
+			window.addEventListener('load', windowLoadFunc, false);
+		var sc = document.createElement('script');
+		sc.type = 'text/javascript';
+		sc.async = true;
+		sc.defer = true;
+		sc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'my.nanorep.com/widget/scripts/embed.js?account=<?php echo $this -> helper("nanorepwidgets") -> getAccountName(); ?>';
+		var _head = document.getElementsByTagName('head')[0];
+		_head.appendChild(sc);
+	})(); 
+</script>
+<?php endif; ?>

@@ -3,16 +3,19 @@
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
+ * @company		nanoRep.
+ * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
  */
-class NanoRep_Widgets_Model_Query extends Mage_Core_Model_Abstract {
+ 
+class NanoRep_Widgets_Model_Query extends Mage_Core_Model_Abstract
+{
 	/**
-     * Initialize resources
+     * Initialize resource model
      */
     protected function _construct()
     {
         $this->_init('nanorepwidgets/query');
     }
 }
+	

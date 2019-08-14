@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
-/**
+ /**
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
+ * @company		nanoRep. 
+ * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */
+ */	
 -->
 <config>
     <tabs>
@@ -34,15 +34,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-<!--                         <active translate="label"> -->
-<!-- 							<label>Enabled</label> -->
-<!-- 							<frontend_type>select</frontend_type> -->
-<!-- 							<source_model>adminhtml/system_config_source_yesno</source_model> -->
-<!-- 							<sort_order>1</sort_order> -->
-<!-- 							<show_in_default>1</show_in_default> -->
-<!-- 							<show_in_website>1</show_in_website> -->
-<!-- 							<show_in_store>1</show_in_store> -->
-<!-- 						</active> -->
 						<account_name translate="label">
 							<label>Account Name</label>
 							<frontend_type>text</frontend_type>
@@ -71,7 +62,7 @@
 						<attribute_select translate="label">
 						    <label>Select which attribute to send to nanoRep</label>
 							<frontend_type>multiselect</frontend_type>
-							<source_model>nanorepwidgets/adminhtml_system_config_source_attribute</source_model>
+							<source_model>nanorepwidgets/system_config_source_attribute</source_model>
 							<sort_order>4</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -80,7 +71,7 @@
 						<product_id_attribute translate="label">
 						    <label>Define ProductID for nanoRep</label>
 							<frontend_type>select</frontend_type>
-							<source_model>nanorepwidgets/adminhtml_system_config_source_productIdAttribute</source_model>
+							<source_model>nanorepwidgets/system_config_source_productIdAttribute</source_model>
 							<sort_order>5</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -126,7 +117,7 @@
                         <active translate="label">
 							<label>Enabled</label>
 							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
 							<sort_order>1</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -144,8 +135,8 @@
 						</active_pages>
                     </fields>
                 </float_widget>
-                <support_widget translate="label">
-                    <label>Support Widget</label>
+                <embed_widget translate="label">
+                    <label>Embeded Widget</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
@@ -172,7 +163,7 @@
 						<div_css translate="label">
 							<label>Position Div CSS</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>2</sort_order>
+							<sort_order>4</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -196,7 +187,7 @@
 						<faq_num translate="label">
 						    <label>Number of Questions</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>4</sort_order>
+							<sort_order>5</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
@@ -205,11 +196,11 @@
 						<kb translate="label">
 						    <label>Knowledge Base</label>
 							<frontend_type>text</frontend_type>
-							<sort_order>5</sort_order>
+							<sort_order>6</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<comment>The knowledge base to export from</comment>
+							<comment>The knowledge base to export from. note: knowledge-base name is case-sensitive</comment>
 						</kb>
 						<max_items translate="label">
 						    <label>Max Items</label>
@@ -304,8 +295,17 @@
 							<validate>validate-digits</validate>
 							<comment>In secondes</comment>
 						</cache_timeout>
+	                    <debug translate="label">
+								<label>Debug Log</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>45</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+	                    </debug>
                     </fields>
-                </support_widget>
+                </embed_widget>
                 <orders_status translate="label">
                     <label>Orders Status</label>
                     <frontend_type>text</frontend_type>

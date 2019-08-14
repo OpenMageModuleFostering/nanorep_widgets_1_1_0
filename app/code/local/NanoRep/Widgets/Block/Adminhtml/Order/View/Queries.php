@@ -166,7 +166,7 @@ class NanoRep_Widgets_Block_Adminhtml_Order_View_Queries extends Mage_Adminhtml_
 		$order = Mage::registry('current_order');
 		$queryResourceModel = Mage::getResourceModel('nanorepwidgets/query');
 		$read = $queryResourceModel->getReadConnection();
-		$queries = $read->fetchAll("SELECT query, date FROM nanorep_query WHERE order_id = '{$order->getId()}'");
+		$queries = $read->fetchAll("SELECT query, date FROM nanorepwidgets_query WHERE order_id = '{$order->getId()}'");
 		return $queries;
 	}
 }

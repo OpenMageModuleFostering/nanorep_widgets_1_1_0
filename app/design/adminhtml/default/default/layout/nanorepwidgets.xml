@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
-//**
+ /**
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
+ * @company		nanoRep. 
+ * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */
+ */	
 -->
 <layout version="0.1.0">
     <nanorepwidgets_adminhtml_mynanorep_index>
@@ -16,6 +16,7 @@
             <block type="nanorepwidgets/adminhtml_mynanorep" name="my_nanorep" template="nanorepwidgets/mynanorep.phtml"/>
         </reference>
     </nanorepwidgets_adminhtml_mynanorep_index>
+    
     <adminhtml_sales_order_view>
         <reference name="order_tab_info">
              <action method="setTemplate">

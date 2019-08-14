@@ -3,8 +3,8 @@
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
+ * @company		nanoRep. 
+ * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
  */
  
@@ -22,10 +22,6 @@ class NanoRep_Widgets_Model_Observer
      */
     public function setNanoRepWidgetOnOrderSuccessPageView(Varien_Event_Observer $observer)
     {
-        // $orderIds = $observer->getEvent()->getOrderIds();
-        // if (empty($orderIds) || !is_array($orderIds)) {
-            // return;
-        // }
 		$block = Mage::app()->getFrontController()->getAction()->getLayout()->createBlock(
 		'NanoRep_Widgets_Block_Success',
 		'nanorep_success_widget');
@@ -36,17 +32,23 @@ class NanoRep_Widgets_Model_Observer
 		
 		if($this->_isThereNanoRepQueryInCustomerSession()){
 			$queries = $this->_getNanorepQueries();
-			foreach($queries as $query){
-				$queryModel = Mage::getModel('nanorepwidgets/query');
-				$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
-			    $order = Mage::getSingleton('sales/order'); 
-			    $order->load($lastOrderId);
-				$queryModel->setOrderId($order->getId());
-				$queryModel->setQuery($query);
-				$queryModel->setDate(Mage::getModel('core/date')->timestamp(time()));
-				$queryModel->save();
-				$this->_session->clear();
+			foreach($queries as $product_id => $product_queries){
+				foreach ($product_queries as $query => $results) {
+					if(!is_null($query)){
+						$queryModel = Mage::getModel('nanorepwidgets/query');
+						$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+					    $order = Mage::getSingleton('sales/order'); 
+					    $order->load($lastOrderId);
+						$queryModel->setProductId($product_id);
+						$queryModel->setOrderId($order->getId());
+						$queryModel->setQuery($query);
+						$queryModel->setResults($results);
+						$queryModel->setDate(Mage::getModel('core/date')->timestamp(time()));
+						$queryModel->save();
+					}
+				}
 			}
+			$this->_session->clear();
 		}
     }
 	
@@ -59,5 +61,7 @@ class NanoRep_Widgets_Model_Observer
 		$queries = $this->_session->getData('nanorep_queries');
 		return $queries;
 	}
+	
+	
 	
 }

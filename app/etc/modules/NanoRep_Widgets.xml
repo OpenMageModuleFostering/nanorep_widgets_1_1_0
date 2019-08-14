@@ -1,19 +1,10 @@
 <?xml version="1.0"?>
-<!--
-/**
- * NanoRep Widgets Extension
- *
- * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
- * @author		Dan Aharon-Shalom
- */
--->
 <config>
     <modules>
         <NanoRep_Widgets>
             <active>true</active>
             <codePool>local</codePool>
+            <depends></depends>
         </NanoRep_Widgets>
     </modules>
 </config>

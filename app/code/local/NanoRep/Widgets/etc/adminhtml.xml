@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * NanoRep Widgets Extension
+ *
+ * @package		NanoRep_Widgets
+ * @company		nanoRep. 
+ * @website		http://www.nanorep.com
+ * @author		Dan Aharon-Shalom
+ */	
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<nanorepwidgets translate="title" module="nanorepwidgets">
+										<title>nanoRep Widgets Account Settings Section</title>
+									</nanorepwidgets>
+								</children>
+							</config>
+						</children>
+					</system>
+					<nanorep translate="title" module="nanorepwidgets">
+						<title>nanoRep</title>
+						<sort_order>100</sort_order>
+						<children>
+							<mynanorep translate="nanorepwidgets">
+								<title>my.nanoRep</title>
+							</mynanorep>
+							<configuration translate="nanorepwidgets">
+								<title>Configuration</title>
+							</configuration>
+						</children>
+					</nanorep>
+					<sales>
+						<children>
+							<assisted_by_nanorep translate="title" module="nanorepwidgets">
+								<title>Purchases Assisted By nanoRep</title>
+							</assisted_by_nanorep>
+						</children>
+					</sales>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<menu>
+		<nanorep translate="title" module="nanorepwidgets">
+			<title>nanoRep</title>
+			<sort_order>100</sort_order>
+			<action>nanorep/adminhtml_mynanorep/index</action>
+			<depends>
+				<module>NanoRep_Widgets</module>
+			</depends>
+			<children>
+				<mynanorep translate="title" module="nanorepwidgets">
+					<title>my.nanoRep</title>
+					<action>nanorep/adminhtml_mynanorep/index</action>
+					<sort_order>0</sort_order>
+				</mynanorep>
+				<configuration translate="title" module="nanorepwidgets">
+					<title>Configuration</title>
+					<action>adminhtml/system_config/edit/section/nanorepwidgets</action>
+					<sort_order>1</sort_order>
+				</configuration>
+			</children>
+		</nanorep>
+		<sales>
+			<children>
+				<assisted_by_nanorep translate="title" module="nanorepwidgets">
+					<title>Purchases Assisted By nanoRep</title>
+					<action>nanorep/adminhtml_order/index</action>
+					<sort_order>11</sort_order>
+				</assisted_by_nanorep>
+				<nanorep_actionable_bi translate="title" module="nanorepwidgets">
+					<title>nanoRep search report</title>
+					<action>nanorep/adminhtml_answer/index</action>
+					<sort_order>12</sort_order>
+				</nanorep_actionable_bi>
+			</children>
+		</sales>
+	</menu>
+</config>

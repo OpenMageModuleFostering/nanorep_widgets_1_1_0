@@ -4,68 +4,55 @@
  * NanoRep Widgets Extension
  *
  * @package		NanoRep_Widgets
- * @company		Omniscience Co. 
- * @website		http://www.omniscience.co.il
+ * @company		nanoRep. 
+ * @website		http://www.nanorep.com
  * @author		Dan Aharon-Shalom
- */
- -->
+ */	
+-->
 <config>
     <modules>
         <NanoRep_Widgets>
-            <version>1.5.0</version>
+            <version>2.0.0</version>
         </NanoRep_Widgets>
     </modules>
     <global>
         <blocks>
-			<nanorepwidgets>
-				<class>NanoRep_Widgets_Block</class>
-			</nanorepwidgets>
-		</blocks>
+            <nanorepwidgets>
+                <class>NanoRep_Widgets_Block</class>
+            </nanorepwidgets>
+        </blocks>
+        <helpers>
+            <nanorepwidgets>
+                <class>NanoRep_Widgets_Helper</class>
+            </nanorepwidgets>
+        </helpers>
         <models>
-			<nanorepwidgets>
-				<class>NanoRep_Widgets_Model</class>
-				<resourceModel>nanorepwidgets_mysql4</resourceModel>
-			</nanorepwidgets>
-			
-			
-			<nanorepwidgets_mysql4>
-	            <class>NanoRep_Widgets_Model_Mysql4</class>
-	            <entities>
-	                <query>
-	                    <table>nanorep_query</table>
-	                </query>
-	            </entities>                 
-	        </nanorepwidgets_mysql4>
-		</models>
-		<helpers>
-			<nanorepwidgets>
-				<class>NanoRep_Widgets_Helper</class>
-			</nanorepwidgets>
-		</helpers>
-		
-		<resources>
-		    <nanorepwidgets_setup>
-		        <setup>
-		            <module>NanoRep_Widgets</module>
-		            <class>NanoRep_Widgets_Model_Mysql4_Setup</class>
-		        </setup>
-		        <connection>
-		            <use>core_setup</use>
-		        </connection>
-		    </nanorepwidgets_setup>
-		    <nanorepwidgets_write>
-	            <connection>
-	                <use>core_write</use>
-	            </connection>
-	        </nanorepwidgets_write>
-	        <nanorepwidgets_read>
-	            <connection>
-	                <use>core_read</use>
-	            </connection>
-	        </nanorepwidgets_read>      
-		</resources>
-		
+            <nanorepwidgets>
+                <class>NanoRep_Widgets_Model</class>
+                <resourceModel>nanorepwidgets_resource</resourceModel>
+            </nanorepwidgets>
+            <nanorepwidgets_resource>
+                <class>NanoRep_Widgets_Model_Resource</class>
+                <entities>
+                    <query>
+                        <table>nanorepwidgets_query</table>
+                    </query>
+                    <answer>
+                        <table>nanorepwidgets_answer</table>
+                    </answer>
+                </entities>
+            </nanorepwidgets_resource>
+        </models>
+        <resources>
+            <nanorepwidgets_setup>
+                <setup>
+                    <module>NanoRep_Widgets</module>
+                    <class>NanoRep_Widgets_Model_Resource_Setup</class>
+                </setup>
+            </nanorepwidgets_setup>
+        </resources>
     </global>
+    
     <admin>
         <routers>
             <nanorepwidgets>
@@ -73,10 +60,22 @@
                 <args>
                     <module>NanoRep_Widgets</module>
                     <frontName>nanorep</frontName>
+                    <modules>
+                        <nanorepwidgets before="Mage_Adminhtml">Nanorep_Widgets_Adminhtml_Order</nanorepwidgets>
+                    </modules>
                 </args>
             </nanorepwidgets>
         </routers>
     </admin>
+    <adminhtml>
+    	<layout>
+			<updates>
+				<nanorepwidgets>
+					<file>nanorepwidgets.xml</file>
+				</nanorepwidgets>
+			</updates>
+		</layout>
+	</adminhtml>
     <frontend>
         <routers>
             <nanorepwidgets>
@@ -113,73 +112,6 @@
             </checkout_multishipping_controller_success_action>
         </events>
     </frontend>
-    
-    <adminhtml>
-        <acl>
-		    <resources>
-		        <admin>
-		            <children>
-		            	<system>
-	                        <children>
-	                            <config>
-	                                <children>
-	                                    <nanorepwidgets translate="title" module="nanorepwidgets">
-	                                        <title>nanoRep Widgets Account Settings Section</title>
-	                                    </nanorepwidgets>
-<!-- 	                                    <nanorepwidgets_management_system translate="title" module="nanorepwidgets"> -->
-<!-- 	                                        <title>nanoRep Widgets Management System Section</title> -->
-<!-- 	                                    </nanorepwidgets_management_system> -->
-	                                </children>
-	                            </config>
-	                        </children>
-	                    </system>
-	                    <nanorep translate="title" module="nanorepwidgets">
-		                	<title>nanoRep</title>
-		                	<sort_order>100</sort_order>
-		                	<children>
-		                		<mynanorep translate="nanorepwidgets">
-		                			<title>my.nanoRep</title>
-		                		</mynanorep>
-		                		<configuration translate="nanorepwidgets">
-		                			<title>Configuration</title>
-		                		</configuration>
-		                	</children>
-		                </nanorep>
-		            </children>
-		        </admin>
-		    </resources>
-		</acl>
-        <menu>
-	        <nanorep translate="title" module="nanorepwidgets">
-	            <title>nanoRep</title>
-	            <sort_order>100</sort_order>
-	            <action>nanorep/adminhtml_mynanorep/index</action>
-	            <depends>
-	                <module>NanoRep_Widgets</module>
-	            </depends>
-	            <children>
-	                <mynanorep translate="title" module="nanorepwidgets">
-	                    <title>my.nanoRep</title>
-	                    <action>nanorep/adminhtml_mynanorep/index</action>
-	                    <sort_order>0</sort_order>
-	                </mynanorep>
-	                <configuration translate="title" module="nanorepwidgets">
-	                    <title>Configuration</title>
-	                    <action>adminhtml/system_config/edit/section/nanorepwidgets</action>
-	                    <sort_order>1</sort_order>
-	                </configuration>
-	            </children>
-	            
-	        </nanorep>
-	    </menu>
-        <layout>
-            <updates>
-                <nanorepwidgets>
-                    <file>nanorepwidgets.xml</file>
-                </nanorepwidgets>
-            </updates>
-        </layout>
-    </adminhtml>
     <default>
         <nanorepwidgets>
             <account_settings>
@@ -193,7 +125,7 @@
                 <active>0</active>
                 <active_pages>0</active_pages>
             </float_widget>
-            <support_widget>
+            <embed_widget>
                 <active>1</active>
                 <width>400</width>
                 <max_height>310</max_height>
@@ -207,7 +139,7 @@
                 <general_faq_headline></general_faq_headline>
                 <question_hidden>1</question_hidden>
                 <cache_timeout>30</cache_timeout>
-            </support_widget>
+            </embed_widget>
             <orders_status>
                 <active>1</active>
                 <active_pages>0</active_pages>
