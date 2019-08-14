@@ -41,7 +41,7 @@ class NanoRep_Widgets_Block_Support extends Mage_Core_Block_Template
 				}
 			
 				if($productID == ""){
-					if($_product->getData($productIdAttribute) != ""){
+					if($product->getData($productIdAttribute) != ""){
 						$productID = $product->getData($productIdAttribute);
 					}
 					else{
