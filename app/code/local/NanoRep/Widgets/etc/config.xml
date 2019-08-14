@@ -12,7 +12,7 @@
 <config>
     <modules>
         <NanoRep_Widgets>
-            <version>1.4.9</version>
+            <version>1.5.0</version>
         </NanoRep_Widgets>
     </modules>
     <global>
