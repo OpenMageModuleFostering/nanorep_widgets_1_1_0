@@ -49,13 +49,10 @@
     </nanorepwidgets_index_cdc>
     
     <nanorepwidgets_account_login>
-    	<update handle="page_empty" />
-    	<remove name="nanorep_header_script" />
-    	<remove name="nanorep_float_widget" />
-    	<remove name="nanorep_events" />
-    	<reference name="content">
-        	<block type="nanorepwidgets/login" template="nanorepwidgets/login.phtml" />
-    	</reference>
+    		<update handle="nanorepwidgets_page_empty" />
+    		<reference name="content">
+	        	<block type="nanorepwidgets/login" template="nanorepwidgets/login.phtml" />
+    		</reference>
     </nanorepwidgets_account_login>
     
     <nanorepwidgets_order_list>
@@ -67,4 +64,14 @@
         	<block type="sales/order_history" template="nanorepwidgets/order/list.phtml" />
     	</reference>
     </nanorepwidgets_order_list>
+    
+     <!-- Custom page layout handles -->
+    <nanorepwidgets_page_empty translate="label">
+        <label>All Empty Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>nanorepwidgets/empty_page.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </nanorepwidgets_page_empty>
 </layout>
