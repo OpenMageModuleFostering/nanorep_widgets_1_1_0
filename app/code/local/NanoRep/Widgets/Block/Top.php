@@ -63,29 +63,30 @@ class NanoRep_Widgets_Block_Top extends Mage_Core_Block_Template
     } 
     
     public function getCategory(){
-        // $_product = null;
-        // if(!is_null($this->getProduct())){
-        // $_product = $this->getProduct();
-        // }
-        // elseif(!is_null(Mage::registry('current_product'))) {
-            // $_product = Mage::registry('current_product');
-        // }
-        // else{
-            // $_product = null;
-        // }
-        // $categories = array();
-        // if(!is_null($_product)){
-            // foreach ($_product->getCategoryIds() as $cat_id) {
-                // $category = Mage::getModel('catalog/category')->load($cat_id);   
-                // $categories[] = $category->getName();
-            // }
-            // echo '"Category": '. Zend_Json::encode($categories) . ',';
-        // }
-        
-        $category = Mage::registry('current_category');
-        if(!is_null($category)){
-            echo '"Category": "'. $category->getId() . '",';
+        $_product = null;
+        if(!is_null($this->getProduct())){
+        $_product = $this->getProduct();
         }
+        elseif(!is_null(Mage::registry('current_product'))) {
+            $_product = Mage::registry('current_product');
+        }
+        else{
+            $_product = null;
+        }
+        $categories = array();
+        if(!is_null($_product)){
+        	$cats = $_product->getCategoryIds();
+            foreach ($_product->getCategoryIds() as $cat_id) {
+                $category = Mage::getModel('catalog/category')->load($cat_id);   
+                $categories[] = $category->getId();
+            }
+            echo '"Category": "'. join(",", $categories) . '",' . "\n";
+        }
+        
+        // $category = Mage::registry('current_category');
+        // if(!is_null($category)){
+            // echo '"Category": "'. $category->getId() . '",';
+        // }
     }
     
     public function getProductRelatedProducts($product){

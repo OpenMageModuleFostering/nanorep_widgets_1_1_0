@@ -38,7 +38,7 @@
             <action method="addItem"><type>skin_js</type><file>nanorepwidgets/head.js</file></action>
             <action method="addItem"><type>skin_css</type><file>nanorepwidgets/head.css</file></action>
        	</reference>
-        <reference name="product.info.additional">
+        <reference name="content">
         	<block type="nanorepwidgets/support" before="-" name="nanorep.support.widget" as="nanorep_support_widget" template="nanorepwidgets/support.phtml" />
 	    </reference>
     </catalog_product_view>
