@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+//**
+ * NanoRep Widgets Extension
+ *
+ * @package		NanoRep_Widgets
+ * @company		Omniscience Co. 
+ * @website		http://www.omniscience.co.il
+ * @author		Dan Aharon-Shalom
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <!-- NanoRep_Widgets -->
+        <reference name="after_body_start">
+            <block type="nanorepwidgets/top" name="nanorep_top_widget" as="nanorep_top_widget" template="nanorepwidgets/top.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="nanorepwidgets/general" name="nanorep_general_widget" as="nanorep_general_widget" template="nanorepwidgets/general.phtml" />
+            <block type="nanorepwidgets/events" name="nanorep_events" as="nanorep_events" template="nanorepwidgets/events.phtml" />
+        </reference>
+    </default>
+    
+    <nanorepwidgets_index_getcustomerhistory>
+        <block type="nanorepwidgets/adminhtml_order_grid" name="root" output="toHtml" />
+    </nanorepwidgets_index_getcustomerhistory>
+    
+    <nanorepwidgets_index_getcustomerhistoryjson>
+        <block type="nanorepwidgets/customerhistoryjson" name="root" output="toHtml"/>
+    </nanorepwidgets_index_getcustomerhistoryjson>
+   
+	<nanorepwidgets_index_cdc>
+        <block type="core/template" name="root" output="toHtml" template="nanorepwidgets/cdc.phtml" />
+    </nanorepwidgets_index_cdc>
+    
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><file>nanorepwidgets/head.js</file></action>
+            <action method="addItem"><type>skin_css</type><file>nanorepwidgets/head.css</file></action>
+       	</reference>
+        <reference name="product.info.additional">
+        	<block type="nanorepwidgets/Support" before="-" name="nanorep.support.widget" as="nanorep_support_widget" template="nanorepwidgets/support.phtml" />
+	    </reference>
+    </catalog_product_view>
+    
+</layout>

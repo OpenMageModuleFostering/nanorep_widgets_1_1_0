@@ -1,0 +1,33 @@
+<?php
+/**
+ * NanoRep Widgets Extension
+ *
+ * @package		NanoRep_Widgets
+ * @company		Omniscience Co. 
+ * @website		http://www.omniscience.co.il
+ * @author		Dan Aharon-Shalom
+ */
+?>
+<script language="JavaScript">
+<!--
+document.body.onload = function(){
+	var viewport = document.viewport.getDimensions();
+	//var width =  screen.availWidth - Object($$('.footer')[0]).positionedOffset().left;
+	var height = viewport.height;
+	//$('mynanorepiframe').setAttribute('width', width + 'px');
+	$('mynanorepiframe').setAttribute('height', height + 'px');
+};
+
+Event.observe(window, 'resize', function() { 
+	var viewport = document.viewport.getDimensions();
+	//var width =  screen.availWidth - Object($$('.footer')[0]).positionedOffset().left;
+	var height = viewport.height;
+	//$('mynanorepiframe').setAttribute('width', width + 'px');
+	$('mynanorepiframe').setAttribute('height', height + 'px');
+});
+//-->
+</script>
+<style>
+	.middle { padding: 0; }
+</style>
+<iframe src="https://my.nanorep.com/console/login.html?username=<?php echo $this->helper('nanorepwidgets')->getUsername();?>&pw=<?php echo $this->helper('nanorepwidgets')->getPassword();?>" id="mynanorepiframe" width="100%" height="600px" ></iframe>

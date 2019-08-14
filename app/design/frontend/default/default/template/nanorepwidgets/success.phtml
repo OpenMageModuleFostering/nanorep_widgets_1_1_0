@@ -1,0 +1,9 @@
+<?php if($this->helper("nanorepwidgets")->isFloatWidgetActive()): ?>
+	<?php
+		$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+	    $order = Mage::getSingleton('sales/order'); 
+	    $order->load($lastOrderId);
+		$total = $order->getGrandTotal();
+	?>
+<script type='text/javascript' src='https://my.nanorep.com/~<?php echo $this -> helper("nanorepwidgets")->getAccountName(); ?>/common/API/trackConversion.js?account=<?php echo $this -> helper("nanorepwidgets")->getAccountName(); ?>&revenue=<?php echo $total ?>&orderId=<?php echo $order->getIncrementId() ?>'></script>
+<?php endif; ?>

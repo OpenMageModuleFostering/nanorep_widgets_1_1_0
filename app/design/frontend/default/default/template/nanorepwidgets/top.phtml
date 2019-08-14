@@ -1,0 +1,63 @@
+
+<?php
+	if(!is_null($this->getProduct())){
+		$_product = $this->getProduct();
+	}
+	elseif(!is_null(Mage::registry('current_product'))) {
+		$_product = Mage::registry('current_product');
+	}
+	else{
+		$_product = null;
+	}
+?>
+
+<?php if($this->helper("nanorepwidgets")->isFloatWidgetActive()): ?>
+<div class='nanorep_loadingData' id='nanoRepProxyContainer' style='position:absolute;top:-500px;left:0px;'>
+</div>
+<script type='text/javascript'>
+	<?php 
+		$productID = "";
+		$productIdAttribute = Mage::getStoreConfig('nanorepwidgets/account_settings/product_id_attribute');
+		if($productIdAttribute == "id"){
+			$productID = $_product->getId();
+		}
+		elseif($productIdAttribute == "sku"){
+			$productID = $_product->getData($productIdAttribute);
+		}
+		
+		if($productID == ""){
+			if($_product->getData($productIdAttribute) != ""){
+				$productID = $_product->getData($productIdAttribute);
+			}
+			else{
+				$productID = $_product->getAttributeText($productIdAttribute);
+			}
+		}
+		if($productID == ""){
+			$productID = $_product->getId();
+		}
+	?>
+	var _nRepData = _nRepData || [];
+	_nRepData["context"] = {
+		"Website" : "<?php echo $_SERVER['HTTP_HOST']; ?>"<?php if(!is_null($_product)): ?>,
+		"ProductID" : "<?php echo $productID?>"<?php if($_product->getAttributeText('manufacturer') != ""): ?>,
+		"Manufacturer" : "<?php echo $_product->getAttributeText('manufacturer'); ?>"<?php endif; ?><?php if(!is_null($_product->getCategory())): ?>,
+		<?php endif; ?>
+		<?php endif; ?>
+	};
+	_nRepData["customParams"] = {
+		<?php $this->getCustomerOrdersStatuses(); ?>
+	    "userLoggedIn" : "<?php echo $this->isUserLoggedIn(); ?>",
+		<?php if(!is_null($_product)): ?>
+			"productName": "<?php echo htmlspecialchars($_product->getName()); ?>", 
+			<?php $this->getCategory(); ?>
+			"ProductID" : "<?php echo $productID?>",
+			"Price" : "<?php echo $_product->getFinalPrice(); ?>",
+			<?php $this->getProductRelatedProducts($_product); ?>
+			<?php $this->getProductUpSellsProducts($_product); ?>
+			<?php $this->getProductCrossSellProducts($_product); ?>
+			<?php $this->getProductAttributes($_product); ?>
+		<?php endif; ?>
+	};
+</script>
+<?php endif; ?>

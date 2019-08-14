@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NanoRep Widgets Extension
+ *
+ * @package		NanoRep_Widgets
+ * @company		Omniscience Co. 
+ * @website		http://www.omniscience.co.il
+ * @author		Dan Aharon-Shalom
+ */
+-->
+<config>
+    <tabs>
+		<nanorep translate="label" module="nanorepwidgets">
+			<label>nanoRep Widgets</label>
+			<sort_order>300</sort_order>
+		</nanorep>
+	</tabs>
+    <sections>
+        <nanorepwidgets translate="label" module="nanorepwidgets">
+            <label>Account Settings</label>
+            <tab>nanorep</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <account_settings translate="label">
+                    <label>Account Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+<!--                         <active translate="label"> -->
+<!-- 							<label>Enabled</label> -->
+<!-- 							<frontend_type>select</frontend_type> -->
+<!-- 							<source_model>adminhtml/system_config_source_yesno</source_model> -->
+<!-- 							<sort_order>1</sort_order> -->
+<!-- 							<show_in_default>1</show_in_default> -->
+<!-- 							<show_in_website>1</show_in_website> -->
+<!-- 							<show_in_store>1</show_in_store> -->
+<!-- 						</active> -->
+						<account_name translate="label">
+							<label>Account Name</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</account_name>
+						<username translate="label">
+							<label>Username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</username>
+						<password translate="label">
+							<label>my.nanoRep Password</label>
+							<frontend_type>password</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</password>
+						<attribute_select translate="label">
+						    <label>Select which attribute to send to nanoRep</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>nanorepwidgets/adminhtml_system_config_source_attribute</source_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</attribute_select>
+						<product_id_attribute translate="label">
+						    <label>Define ProductID for nanoRep</label>
+							<frontend_type>select</frontend_type>
+							<source_model>nanorepwidgets/adminhtml_system_config_source_productIdAttribute</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_id_attribute>
+						<related_products translate="label">
+						    <label>Load Related Products</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</related_products>
+						<upsells_products translate="label">
+						    <label>Load Up Sells Products</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</upsells_products>
+						<crosssells_products translate="label">
+						    <label>Load Cross Sells Products</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</crosssells_products>
+                    </fields>
+                </account_settings>
+                <float_widget translate="label">
+                    <label>Floating Widget</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+						<active_pages translate="label">
+						    <label>Active for pages</label>
+							<frontend_type>select</frontend_type>
+							<source_model>nanorepwidgets/system_config_source_floatWidgetActivePages</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><active>1</active></depends>
+						</active_pages>
+                    </fields>
+                </float_widget>
+                <support_widget translate="label">
+                    <label>Support Widget</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+<!-- 						<password translate="label"> -->
+<!-- 							<label>Password</label> -->
+<!-- 							<frontend_type>password</frontend_type> -->
+<!-- 							<sort_order>3</sort_order> -->
+<!-- 							<show_in_default>1</show_in_default> -->
+<!-- 							<show_in_website>1</show_in_website> -->
+<!-- 							<show_in_store>1</show_in_store> -->
+<!-- 						</password> -->
+						<width translate="label">
+							<label>Widget Width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</width>
+						<max_height translate="label">
+							<label>Widget Height</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_height>
+						<faq_num translate="label">
+						    <label>Number of Questions</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-digits</validate>
+						</faq_num>
+						<kb translate="label">
+						    <label>Knowledge Base</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>The knowledge base to export from</comment>
+						</kb>
+						<max_items translate="label">
+						    <label>Max Items</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-digits</validate>
+						</max_items>
+						<skip translate="label">
+						    <label>Skip</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-digits</validate>
+							<comment>The place in the list from which to start fetching. E.g., use 10 to start fetching the list from the 11th item</comment>
+						</skip>
+						<by_popularity translate="label">
+							<label>By Popularity</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>If you use true(recommended), the most popular articles will show up first in the search result</comment>
+						</by_popularity>
+						<days translate="label">
+						    <label>Days</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-digits</validate>
+							<depends><by_popularity>1</by_popularity></depends>
+							<comment>Use this to show the most popular answers given by the nanoRep widget during the last X days.</comment>
+						</days>
+						<label_id translate="label">
+						    <label>Label ID</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Use this to show answers froim a specifc label only. you can find this information in the nanoRep console when editing a label.</comment>
+						</label_id>
+						<text_filter translate="label">
+						    <label>Text Filter</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Use this to show answers that contain a certain word or phrase</comment>
+						</text_filter>
+					    <product_faq_headline translate="label">
+						    <label>Product FAQ Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>35</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_faq_headline>
+						<general_faq_headline translate="label">
+						    <label>General FAQ Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>35</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</general_faq_headline>
+						<cache_timeout translate="label">
+						    <label>Cache Update Every</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-digits</validate>
+							<comment>In secondes</comment>
+						</cache_timeout>
+                    </fields>
+                </support_widget>
+                <orders_status translate="label">
+                    <label>Orders Status</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+						<active_pages translate="label">
+						    <label>Active for pages</label>
+							<frontend_type>select</frontend_type>
+							<source_model>nanorepwidgets/system_config_source_ordersStatusActivePages</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><active>1</active></depends>
+						</active_pages>
+                    </fields>
+                </orders_status>
+            </groups>
+        </nanorepwidgets>
+    </sections>
+</config>

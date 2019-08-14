@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<package>
+    <name>NanoRep_Widgets_1_1_0</name>
+    <version>1.3.8</version>
+    <stability>stable</stability>
+    <license uri="http://www.gnu.org/licenses/gpl.html">GPL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Increases online sales &amp; improves service&#xD;
+by enabling direct purchases from nanoRep&#xD;
+widget and providing detailed purchasing&#xD;
+history to agents.</summary>
+    <description>The nanoRep solution improves customer&#xD;
+experience and significantly increases&#xD;
+conversion and online sales. nanoRep is&#xD;
+your virtual shopping assistant &#x2013; it&#xD;
+answers questions, offers rewards &amp;&#xD;
+coupons, suggests products and collects&#xD;
+visitors' information. nanoRep&#x2019;s self-&#xD;
+learning knowledge base helps customers&#xD;
+interact with your brand via self-service&#xD;
+widgets across your website (every page),&#xD;
+mobile and Facebook. nanoRep lets your&#xD;
+customers stay focus &#x2013; all the information&#xD;
+they need is readily available, reducing site&#xD;
+and shopping cart abandonment.&#xD;
+&#xD;
+nanoRep increases customer engagement&#xD;
+on e-commerce websites resulting in a&#xD;
+better customer experience, higher&#xD;
+satisfaction rate and increased online sales.&#xD;
+Customer intelligence is provided&#xD;
+throughout the process, so you can make&#xD;
+customer driven decision that will further&#xD;
+increase online conversion and sales.&#xD;
+&#xD;
+nanoRep Connect&#xD;
+Purchasing history - The integration with&#xD;
+Magento brings&#xD;
+customers&#x2019;&#xD;
+purchasing history&#xD;
+to nanoRep&#x2019;s&#xD;
+ticketing system.&#xD;
+Agents get a 360&#xD;
+degree view of customers&#x2019; activity before&#xD;
+working on cases.&#xD;
+</description>
+    <notes>Added Support to define a different product id</notes>
+    <authors><author><name>NanoRep</name><user>avivnanore</user><email>aviv@nanorep.com</email></author></authors>
+    <date>2014-04-01</date>
+    <time>11:20:39</time>
+    <contents><target name="magelocal"><dir name="NanoRep"><dir name="Widgets"><dir name="Block"><dir name="Adminhtml"><file name="Mynanorep.php" hash="8d2fc0ec21bf7c5583c308e81d4cabd8"/><dir name="Order"><file name="Grid.php" hash="4c2d639873e7d5dd099c9cbaa2013a50"/><dir name="View"><file name="Queries.php" hash="87b00acce9293ff50893be42e27e0542"/></dir></dir></dir><file name="Customerhistoryjson.php" hash="fa7ce0515f0de6e479d669691f5b85b2"/><file name="Events.php" hash="3ed310081949aa73c80710b29d559413"/><file name="General.php" hash="0e591128716cdf4fafd71a69ce98c755"/><file name="Success.php" hash="6ae59952edefcd75006f5f8323444765"/><file name="Support.php" hash="b1d926b2febb4bac5a2601f636437ab3"/><file name="Top.php" hash="8ab75cf1143182f643b91a88d9ce569e"/></dir><dir name="Helper"><file name="Data.php" hash="34982e32e23953ccba4d48905f0203c5"/></dir><dir name="Model"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Source"><file name="Attribute.php" hash="170f0dfbdcfa9b67bc18b0d03494e23b"/><file name="ProductIdAttribute.php" hash="f61e5d9a386bc030a78c012f81e88c2d"/></dir></dir></dir></dir><file name="History.php" hash="99ed12e3dfcb7a563825fd8418a50e59"/><dir name="Mysql4"><file name="Query.php" hash="c5f69b8c5e93e7d06fc1ff16c873790d"/><file name="Setup.php" hash="be89f73150df986eb994ebcf3dc7416e"/></dir><file name="Observer.php" hash="edb358cbed835123f8e53b2e57d5960c"/><file name="Query.php" hash="9f0f7f077766745d88535ae2a1805cb5"/><file name="Session.php" hash="4cd0cfe4a67bade3eb710aac7f8cfb40"/><dir name="System"><dir name="Config"><dir name="Source"><file name="FloatWidgetActivePages.php" hash="8feb17fe6ee045cba82f481a0bf90d5d"/><file name="OrdersStatusActivePages.php" hash="6bd1beff14a6fa24b78e3393a03245a4"/></dir></dir></dir></dir><dir name="controllers"><dir name="Adminhtml"><file name="MynanorepController.php" hash="6846f66016c3faddcd8f6f4fb2b9deca"/></dir><file name="IndexController.php" hash="fddc21b9390b15e04b0aa391919f3930"/><file name="QueryController.php" hash="35975131cad35dcea58801613b3ab960"/></dir><dir name="etc"><file name="config.xml" hash="b6519dc0398ea8c0187d5838c7085d10"/><file name="system.xml" hash="dd97a773480aae8450be4d21ac9752f8"/></dir><dir name="sql"><dir name="nanorepwidgets_setup"><file name="mysql4-data-upgrade-1.2.2-1.2.3.php" hash="feaf8b31078707d0df7ff6758ec7a5d6"/><file name="mysql4-install-1.2.2.php" hash="869d64ee7d1d121a3b617c22b875949b"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="NanoRep_Widgets.xml" hash="4fbaad20e02fa3ed2147ba15864c3cab"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="nanorepwidgets.xml" hash="5a1ec84c4f03f7ed7ba59e47b478e18b"/></dir><dir name="template"><dir name="nanorepwidgets"><file name="cdc.phtml" hash="ccc4e010b3ee2b8229b36ca9b6a87c0b"/><file name="events.phtml" hash="cbdce563c3e4032c6bf23ed732485c7d"/><file name="general.phtml" hash="e5505af4b24fbb6d719962ca986cf589"/><file name="grid.phtml" hash="5d3d5cadd384525b13d4f5b8e1a40f22"/><file name="success.phtml" hash="c637a727aa20ec91105f3dbeb20832a7"/><file name="support.phtml" hash="c98da8432e6722cdf1a7762770873ab5"/><file name="top.phtml" hash="9a41873114eaa0531357e8e0759c0768"/></dir></dir></dir></dir></dir><dir name="adminhtml"><dir><dir name="default"><dir name="default"><dir name="template"><dir name="nanorepwidgets"><file name="mynanorep.phtml" hash="270b613ddddc94ad3e617c397f1f53a1"/><dir name="order"><dir name="view"><file name="queries.phtml" hash="bfb44dd77bba62629277aae45239ea6b"/><dir name="tab"><file name="info.phtml" hash="6dde16c3fe3bdddb65ca977d99872811"/></dir></dir></dir></dir></dir></dir></dir></dir><dir name="default"><dir name="default"><dir name="layout"><file name="nanorepwidgets.xml" hash="d818dd9f9b17bedccba27a8f715b71dd"/></dir></dir></dir></dir></target><target name="mageskin"><dir name="frontend"><dir name="default"><dir name="default"><dir name="nanorepwidgets"><file name="head.css" hash="1779a092e2c2a771a0725e1cdd682a46"/><file name="head.js" hash="8bafa94d8432b42e2e6e7f6af91db39e"/></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

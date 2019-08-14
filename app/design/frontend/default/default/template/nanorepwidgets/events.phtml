@@ -1,0 +1,34 @@
+
+<?php
+	if(!is_null($this->getProduct())){
+		$_product = $this->getProduct();
+	}
+	elseif(!is_null(Mage::registry('current_product'))) {
+		$_product = Mage::registry('current_product');
+	}
+	else{
+		$_product = null;
+	}
+?>
+
+<?php if($this->helper("nanorepwidgets")->isFloatWidgetActive()): ?>
+<script type='text/javascript'>
+	_nRepData["events"] =
+	{
+		query: function(query, isAutoQuestion){
+			new Ajax.Request('<?php echo $this->helper('nanorepwidgets')->getStoreQueryInCookieUrl()?>', {
+				method: "post",
+				parameters: {
+					'query': query
+				},
+			  	onSuccess: function(response) {
+			    	// Handle the response content...
+			    	console.log(response);
+				}
+			});
+		}
+
+	};
+
+</script>
+<?php endif; ?>
