@@ -21,6 +21,12 @@
         </reference>
     </default>
     
+    <checkout_onepage_success>
+    	<reference name="after_body_end">
+    		<block type="nanorepwidgets/succuss" name="nanorep_success" as="nanorep_success" template="nanorepwidgets/success.phtml" />
+        </reference>
+    </checkout_onepage_success>
+    
     <nanorepwidgets_index_getcustomerhistory>
         <block type="nanorepwidgets/adminhtml_order_grid" name="root" output="toHtml" />
     </nanorepwidgets_index_getcustomerhistory>
