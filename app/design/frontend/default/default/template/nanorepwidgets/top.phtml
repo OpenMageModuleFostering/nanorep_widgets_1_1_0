@@ -54,7 +54,7 @@
 			"productName": "<?php echo htmlspecialchars($_product->getName()); ?>", 
 			<?php $this->getCategory(); ?>
 			"ProductID" : "<?php echo $productID?>",
-			"Price" : "<?php echo $_product->getFinalPrice(); ?>",
+			"Price" : "<?php echo Mage::helper('core')->currency($_product->getFinalPrice(), true, false); ?>",
 			<?php $this->getProductRelatedProducts($_product); ?>
 			<?php $this->getProductUpSellsProducts($_product); ?>
 			<?php $this->getProductCrossSellProducts($_product); ?>
