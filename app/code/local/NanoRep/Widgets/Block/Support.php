@@ -84,6 +84,8 @@ class NanoRep_Widgets_Block_Support extends Mage_Core_Block_Template
         }
         $url = "https://".$server."/common/api/kbExport.xml?byPopularity=".$byPopularity."&username=".$username."&pw=".$password."&kb=".$kb."&skip=".$skip."&maxItems=".$maxItems."&days=".$days."&labelId=".$labelId."&textFilter=".$textFilter."&context=".$contextStr;
 		
+		Mage::log($url, null, "nanorep-general.log");
+		
         $cache_file = Mage::getBaseDir('cache') . "/nanorepcachekb.txt";
         if($forProduct){
             $cache_file = Mage::getBaseDir('cache') . "/nanorepcachekb-p".$product->getId().".txt";   

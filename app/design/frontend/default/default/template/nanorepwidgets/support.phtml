@@ -20,14 +20,16 @@ if (!is_null($this -> getProduct())) {
 <script type='text/javascript'>
 
     document.observe("dom:loaded", function() {
-    	if($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>').length > 0){
-    		$$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].insert("<div id='nanoRepEmbedContainer'></div>");
-    		//$('nanoRepEmbedContainer').insert($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].descendants()[0]);
-    	}
-    	else{
-    		$$('.box-collateral.box-additional')[0].insert("<div id='nanoRepEmbedContainer'></div>");
-    	}
-        onloadFnc();    
+    	if($("nanoRepEmbedContainer") == undefined ){
+	    	if($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>').length > 0){
+	    		$$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].insert("<div id='nanoRepEmbedContainer'></div>");
+	    		//$('nanoRepEmbedContainer').insert($$('<?php echo Mage::getStoreConfig("nanorepwidgets/support_widget/div_css"); ?>')[0].descendants()[0]);
+	    	}
+	    	else{
+	    		$$('.box-collateral.box-additional')[0].insert("<div id='nanoRepEmbedContainer'></div>");
+	    	}
+	        onloadFnc();    
+       }
     }); 
     
 	_nRepData['kb'] = '8331305';

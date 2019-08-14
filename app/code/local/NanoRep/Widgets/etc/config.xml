@@ -206,7 +206,7 @@
                 <product_faq_headline>Popular questions by other visitors:</product_faq_headline>
                 <general_faq_headline></general_faq_headline>
                 <question_hidden>1</question_hidden>
-                <cache_timeout>86400</cache_timeout>
+                <cache_timeout>1800</cache_timeout>
             </support_widget>
             <orders_status>
                 <active>1</active>
