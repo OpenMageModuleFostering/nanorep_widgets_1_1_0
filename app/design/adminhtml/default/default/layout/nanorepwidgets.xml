@@ -16,12 +16,4 @@
             <block type="nanorepwidgets/adminhtml_mynanorep" name="my_nanorep" template="nanorepwidgets/mynanorep.phtml"/>
         </reference>
     </nanorep_adminhtml_mynanorep_index>
-    
-    <adminhtml_sales_order_view>
-        <reference name="order_tab_info">
-             <action method="setTemplate">
-                <template>nanorepwidgets/order/view/tab/info.phtml</template>
-            </action>
-        </reference>
-    </adminhtml_sales_order_view>
 </layout>
