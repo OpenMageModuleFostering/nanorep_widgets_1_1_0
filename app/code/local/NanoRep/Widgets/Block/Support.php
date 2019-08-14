@@ -31,8 +31,29 @@ class NanoRep_Widgets_Block_Support extends Mage_Core_Block_Template
         if($forProduct){
             $context = null;
             if($product){
+				$productID = "";
+				$productIdAttribute = Mage::getStoreConfig('nanorepwidgets/account_settings/product_id_attribute');
+				if($productIdAttribute == "id"){
+					$productID = $product->getId();
+				}
+				elseif($productIdAttribute == "sku"){
+					$productID = $product->getsku();
+				}
+			
+				if($productID == ""){
+					if($_product->getData($productIdAttribute) != ""){
+						$productID = $product->getData($productIdAttribute);
+					}
+					else{
+						$productID = $product->getAttributeText($productIdAttribute);
+					}
+					if($productID == ""){
+						$productID = $product->getId();
+					}
+				}
+				
                 $context = array();
-                $context["ProductID"] =  $product->getId();
+                $context["ProductID"] =  $productID;
             }
         }
         $cacheTime = $helper -> getSupportWidgetCacheTimeout(); // how long to store the data in the cache (seconds)
@@ -62,6 +83,7 @@ class NanoRep_Widgets_Block_Support extends Mage_Core_Block_Template
             $contextStr = str_replace($replace, $replacer, $contextStr);
         }
         $url = "https://".$server."/common/api/kbExport.xml?byPopularity=".$byPopularity."&username=".$username."&pw=".$password."&kb=".$kb."&skip=".$skip."&maxItems=".$maxItems."&days=".$days."&labelId=".$labelId."&textFilter=".$textFilter."&context=".$contextStr;
+		
         $cache_file = Mage::getBaseDir('cache') . "/nanorepcachekb.txt";
         if($forProduct){
             $cache_file = Mage::getBaseDir('cache') . "/nanorepcachekb-p".$product->getId().".txt";   
