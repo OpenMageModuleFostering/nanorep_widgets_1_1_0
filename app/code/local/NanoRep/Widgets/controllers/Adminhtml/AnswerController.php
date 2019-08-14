@@ -1,14 +1,20 @@
 <?php
+
 /**
- * NanoRep Widgets Extension
+ * NanoRep Widgets Extension.
  *
- * @package		NanoRep_Widgets
  * @company		nanoRep.
  * @website		http://www.nanorep.com
+ *
  * @author		Dan Aharon-Shalom
  */
 class Nanorep_Widgets_Adminhtml_AnswerController extends Mage_Adminhtml_Controller_Action
 {
+    protected function _isAllowed()
+    {
+        return true;
+    }
+
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('nanoRep search report'));
