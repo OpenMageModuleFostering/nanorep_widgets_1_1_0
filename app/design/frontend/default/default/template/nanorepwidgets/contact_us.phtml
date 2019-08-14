@@ -13,7 +13,8 @@
     <?php if($fileds != ""): ?>
         <script type="text/javascript" src="<?php echo $this->getSkinUrl('nanorepwidgets/jsonp.js') ?>"></script>
         <script type="text/javascript">
-            var _nanoRepContactusSessionId = '';
+            var _nanoRepContactusSessionId = '',
+                _nanoRepContactusRequestId = 0;
         
             function getNanoRepContactUsSessionId(query, e){
                 var getSessionIdUrl = "<?php echo $this->getApiServerUrl('hello.js'); ?>";
@@ -52,53 +53,55 @@
                 if(sid == ''){
                     getNanoRepContactUsSessionId();
                 }
+                
                 new Ajax.JSONRequest(nanoRepQueryApiUrl, {
-                      callbackParamName: "cb",
-                      parameters: {
-                          auto : "false",
-                          text : query,
-                          sameQ : "false",
-                          suggestion : "false",
-                          kb : "<?php echo $this->getKb(); ?>",
-                          "sid" : sid
-                      },
-                      onCreate: function(response) {
-                        // console.log("1: create", response, response.responseJSON);
-                      },
-                      onSuccess: function(response) {
-                        var data = response.responseJSON;
-                        // console.log(e);
-                        // console.log(data);
-                        nanoRepContactUsAnswers.title = "<?php echo $this->getTitle(); ?>";
-                        if(data.answers.length > 0){
-                            for(a = 0; a < data.answers.length; a++){  
-                                if(data.answers[a].context != undefined){
-                                    data.answers.splice(a, 1);
-                                }
+                  callbackParamName: "cb",
+                  parameters: {
+                      auto : "false",
+                      text : query,
+                      requestId : _nanoRepContactusRequestId,
+                      sameQ : "false",
+                      suggestion : "false",
+                      kb : "<?php echo $this->getKb(); ?>",
+                      "sid" : sid
+                  },
+                  onCreate: function(response) {
+                    // console.log("1: create", response, response.responseJSON);
+                  },
+                  onSuccess: function(response) {
+                    var data = response.responseJSON;
+                    // console.log(e);
+                    //console.log(data);
+                    nanoRepContactUsAnswers.title = "<?php echo $this->getTitle(); ?>";
+                    if(data.answers.length > 0){
+                        for(a = 0; a < data.answers.length; a++){  
+                            if(data.answers[a].context != undefined){
+                                data.answers.splice(a, 1);
                             }
-                            if(data.answers.length > 0){
-                                nanoRepContactUsAnswers.show(e, data.answers);
-                            }
-                            else{
-                                $('answers-popup-text').innerHTML = '';
-                                nanoRepContactUsAnswers.hide();
-                                
-                            }
-                                
+                        }
+                        if(data.answers.length > 0 && data.requestId == (_nanoRepContactusRequestId - 1)){
+                            nanoRepContactUsAnswers.show(e, data.answers);
                         }
                         else{
                             $('answers-popup-text').innerHTML = '';
                             nanoRepContactUsAnswers.hide();
                         }
-                        // console.log("1: success", response, response.responseJSON);
-                      },
-                      onFailure: function(response) {
-                        // console.log("1: fail", response, response.responseJSON);
-                      },
-                      onComplete: function(response) {
-                        // console.log("1: complete", response, response.responseJSON);
-                      }
-                    });
+                            
+                    }
+                    else{
+                        $('answers-popup-text').innerHTML = '';
+                        nanoRepContactUsAnswers.hide();
+                    }
+                    // console.log("1: success", response, response.responseJSON);
+                  },
+                  onFailure: function(response) {
+                    // console.log("1: fail", response, response.responseJSON);
+                  },
+                  onComplete: function(response) {
+                    // console.log("1: complete", response, response.responseJSON);
+                  }
+                });
+                _nanoRepContactusRequestId++;
             }
             
             var fields_css = [<?php echo $fileds ?>];
@@ -107,12 +110,15 @@
                     $$(fields_css[i])[0].observe('keyup', function(e){
                         var query = e.target.value; 
                         if(query != ""){
-                            if(_nanoRepContactusSessionId == ''){
-                                getNanoRepContactUsSessionId(query, e);
-                            }
-                            else{
-                                queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
-                            }
+                            clearTimeout(window.nanoRepContactusTimer);
+                            window.nanoRepContactusTimer = setTimeout(function(){
+                                if(_nanoRepContactusSessionId == ''){
+                                    getNanoRepContactUsSessionId(query, e);
+                                }
+                                else{
+                                    queryNanoRepContactUs(query, _nanoRepContactusSessionId, e);
+                                }
+                            }, 500);
                         }
                     });
                 }
