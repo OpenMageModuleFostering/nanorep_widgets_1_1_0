@@ -10,12 +10,12 @@
  */	
 -->
 <layout version="0.1.0">
-    <nanorepwidgets_adminhtml_mynanorep_index>
+    <nanorep_adminhtml_mynanorep_index>
         <remove name="footer" />
         <reference name="content">
             <block type="nanorepwidgets/adminhtml_mynanorep" name="my_nanorep" template="nanorepwidgets/mynanorep.phtml"/>
         </reference>
-    </nanorepwidgets_adminhtml_mynanorep_index>
+    </nanorep_adminhtml_mynanorep_index>
     
     <adminhtml_sales_order_view>
         <reference name="order_tab_info">

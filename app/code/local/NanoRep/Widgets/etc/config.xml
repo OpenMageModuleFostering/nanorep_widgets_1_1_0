@@ -12,7 +12,7 @@
 <config>
     <modules>
         <NanoRep_Widgets>
-            <version>2.0.4</version>
+            <version>2.0.5</version>
         </NanoRep_Widgets>
     </modules>
     <global>
@@ -54,8 +54,11 @@
     </global>
     
     <admin>
+    	<secure_url>
+    		<nanorep>/nanorep/adminhtml_mynanorep/index</nanorep>
+		</secure_url>
         <routers>
-            <nanorepwidgets>
+            <nanorep>
                 <use>admin</use>
                 <args>
                     <module>NanoRep_Widgets</module>
@@ -64,7 +67,7 @@
                         <nanorepwidgets before="Mage_Adminhtml">Nanorep_Widgets_Adminhtml_Order</nanorepwidgets>
                     </modules>
                 </args>
-            </nanorepwidgets>
+            </nanorep>
         </routers>
     </admin>
     <adminhtml>

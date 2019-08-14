@@ -67,7 +67,7 @@ class NanoRep_Widgets_Block_Embed extends Mage_Core_Block_Template
         }
         $url = "https://".$server."/common/api/kbExport.xml?byPopularity=".$byPopularity."&username=".$username."&pw=".$password."&kb=".$kb."&skip=".$skip."&maxItems=".$maxItems."&days=".$days."&labelId=".$labelId."&textFilter=".$textFilter."&context=".$contextStr;
 		
-		if(Mage::getStoreConfigFlag('nanorepwidgets/embed_widget/debug')){
+		if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
 			Mage::log($url, null, "nanorep-embeded-debug.log");
 		}
 		

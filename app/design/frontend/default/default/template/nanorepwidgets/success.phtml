@@ -12,6 +12,39 @@
 	$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
     $order = Mage::getSingleton('sales/order'); 
     $order->load($lastOrderId);
-	$total = $order->getGrandTotal();
+	// getAmount is defined in the parent class and should read
+    // the value from the defined source_field in your config.xml
+    $price = $order->getGrandTotal();
+	$rate = 1;
+    $baseCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
+	$currencyCode = $order->getOrderCurrencyCode();
+	
+	if($currencyCode != $baseCurrencyCode){
+		// convert price from current currency to base currency
+		$currency = Mage::getModel('directory/currency')->load($currencyCode);
+		$rate = $currency->getRate($baseCurrencyCode);
+		if(!$rate){
+			$currency->load($baseCurrencyCode);
+			$rate = 1 / $currency->getRate($currencyCode);
+		}
+	}
+	
+	$baseCurrencyPrice = $price * $rate;
+	
+	$script = Mage::getStoreConfig('nanorepwidgets/account_settings/conversion_script');
+	if($script != null && $script != ""){
+		$script = str_replace("{{order_amount}}", $baseCurrencyPrice, $script);
+		$script = str_replace("{{order_id}}", $order->getIncrementId(), $script);
+		
+		echo $script;
+		
+		if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
+			Mage::log("Conversion Script added to Order success page: ". $script, null, "nanorep-conversion-script-debug.log");
+		}
+	}
+	else{
+		if(Mage::getStoreConfigFlag('nanorepwidgets/account_settings/debug')){
+			Mage::log("Conversion Script Was not added to order success page: ". $script, null, "nanorep-conversion-script-debug.log");
+		}
+	}
 ?>
-<script type='text/javascript' src='https://my.nanorep.com/~<?php echo $this -> helper("nanorepwidgets")->getAccountName(); ?>/common/API/trackConversion.js?account=<?php echo $this -> helper("nanorepwidgets")->getAccountName(); ?>&revenue=<?php echo $total ?>&orderId=<?php echo $order->getIncrementId() ?>'></script>
