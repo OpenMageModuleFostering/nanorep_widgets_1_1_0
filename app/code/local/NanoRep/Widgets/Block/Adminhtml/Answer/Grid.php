@@ -87,7 +87,7 @@ class NanoRep_Widgets_Block_Adminhtml_Answer_Grid extends Mage_Adminhtml_Block_W
                 , array('answer_title_with_query' => 'main_table.answer_title_with_query', 'answer_title' => 'main_table.answer_title', 'query' => 'main_table.query'))
 		;
 		$collection->getSelect()->order('answer_id', 'ASC');
-		$collection->getSelect()->group(array('main_table.answer_id'));
+		$collection->getSelect()->group(array('main_table.answer_id', 'main_table.product_id'));
 		
 		$filter   = $this->getParam($this->getVarNameFilter(), null);
 
