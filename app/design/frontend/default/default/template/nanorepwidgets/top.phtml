@@ -24,7 +24,7 @@
 				$productID = $_product->getId();
 			}
 			elseif($productIdAttribute == "sku"){
-				$productID = $_product->getData($productIdAttribute);
+				$productID = $_product->getSku();
 			}
 		
 			if($productID == ""){
