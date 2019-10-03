@@ -1,19 +1,5 @@
 {
-    "name": "OpenMageModuleFostering/NanoRep_Widgets_1_1_0",
-    "type": "magento-module",
-    "license": "GPL-v3.0",
-    "homepage": "",
-    "description": "Increases online sales & improves service
-by enabling direct purchases from nanoRep
-widget and providing detailed purchasing
-history to agents.",
-    "authors": [
-    {
-        "name": "NanoRep",
-        "email": "aviv@nanorep.com"
-    }
-],
-    "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+    "keywords": [
+        "openmage-module"
+    ]
 }
